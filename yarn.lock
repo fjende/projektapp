@@ -1140,6 +1140,21 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
+"@mui-treasury/layout@^3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@mui-treasury/layout/-/layout-3.3.0.tgz#9ffc7ee2b4d16482f58c331e798d4ae259d09ed2"
+  dependencies:
+    "@mui-treasury/styling" "^0.2.7"
+    lodash.debounce "^4.0.8"
+    lodash.get "^4.4.2"
+
+"@mui-treasury/styling@^0.2.7":
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/@mui-treasury/styling/-/styling-0.2.7.tgz#e15aedb11ee9c8ce567fc2f09981aa3452788b21"
+  dependencies:
+    lodash.camelcase "^4.3.0"
+    lodash.pick "^4.4.0"
+
 "@nodelib/fs.scandir@2.1.3":
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.3.tgz#3a582bdb53804c6ba6d146579c46e52130cf4a3b"
@@ -6014,9 +6029,25 @@ lodash._reinterpolate@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
 
+lodash.camelcase@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
+
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+
+lodash.get@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+
 lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
+
+lodash.pick@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/lodash.pick/-/lodash.pick-4.4.0.tgz#52f05610fff9ded422611441ed1fc123a03001b3"
 
 lodash.sortby@^4.7.0:
   version "4.7.0"
@@ -6395,6 +6426,10 @@ ms@2.1.1:
 ms@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
+
+mui-layout@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/mui-layout/-/mui-layout-1.2.9.tgz#372d7940d1c655cc72e15e3dcc81ad0c097af718"
 
 multicast-dns-service-types@^1.1.0:
   version "1.1.0"
