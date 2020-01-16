@@ -15,11 +15,20 @@ import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link'
+import Profile from '../Profile/Profile';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import CategoryIcon from '@material-ui/icons/Category';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+
 import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 
-const drawerWidth = 240;
+const drawerWidth = 290;
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -47,6 +56,7 @@ const useStyles = makeStyles(theme => ({
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
         width: drawerWidth,
+
     },
     content: {
         flexGrow: 1,
@@ -105,21 +115,59 @@ function Home(props) {
         <div>
             <div className={classes.toolbar} />
             <Divider />
-            <List>
-                {['Profile', 'Tasks', 'Categories', 'Statistics', 'About', 'Logout'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
+            <List style={{ marginLeft: 10 }}>
+
+                <ListItem button component="a" key='Schedule' href="/home">
+
+                    <ListItemIcon><ScheduleIcon /></ListItemIcon>
+                    <ListItemText primary='Schedule' />
+
+                </ListItem>
+
+                <ListItem button component="a" key='Tasks' href="/tasks">
+
+                    <ListItemIcon><AssignmentIcon /></ListItemIcon>
+                    <ListItemText primary='Tasks' />
+
+                </ListItem>
+                <ListItem button component="a" key='Categories' href="/categories">
+
+                    <ListItemIcon><CategoryIcon /></ListItemIcon>
+                    <ListItemText primary='Categories' />
+
+                </ListItem>
+
+                <ListItem button component="a" key='Statistics' href="/statistics">
+
+                    <ListItemIcon><EqualizerIcon /></ListItemIcon>
+                    <ListItemText primary='Statistics' />
+
+                </ListItem>
+                <ListItem button component="a" key='Profile' href="/profile">
+
+                    <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+                    <ListItemText primary='Profile' />
+
+                </ListItem>
             </List>
-        </div>
+            <List style={{ position: 'absolute', bottom: 0, marginLeft: 15 }}>
+                <ListItem button component="a" key='Logout' href="/Logout" >
+
+                    <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+                    <ListItemText primary='Logout' />
+
+                </ListItem>
+
+
+            </List>
+
+        </div >
     );
 
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <AppBar position="fixed" className={classes.appBar} color='secondary'>
+            <AppBar position="fixed" className={classes.appBar} >
 
                 <Toolbar>
                     <IconButton
@@ -160,14 +208,13 @@ function Home(props) {
                         }}
                         variant="permanent"
                         open
+                        container={container}
                     >
                         {drawer}
                     </Drawer>
                 </Hidden>
             </nav>
-            <main className={classes.content}>
-
-            </main>
+            <Profile />
         </div >
     );
 }
