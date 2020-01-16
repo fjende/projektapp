@@ -7,14 +7,23 @@
         "code": 120,
         "tabWidth": 2,
         "ignoreComments": true,
-        "ignoreTrailingComments": true,
         "ignoreUrls": true,
-        "ignoreStrings": true,
-        "ignoreTemplateLiterals": true,
-        "ignoreRegExpLiterals": true
+        "ignoreStrings": true
       }
     ],
-    "quotes": ["error", "single", "avoid-escape"],
-    "prettier/prettier": ["error", { "singleQuote": true, "printWidth": 120 }]
+    "quotes": [
+      2,
+      "single",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": false
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true
+      }
+    ]
   }
 }
