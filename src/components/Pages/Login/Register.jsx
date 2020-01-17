@@ -103,7 +103,7 @@ export default function Register() {
                     <Button
                         type="submit"
                         fullWidth
-                        variant="contained"
+                        variant="outlined"
                         color="primary"
                         className={classes.submit}
                     >

@@ -23,7 +23,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import CategoryIcon from '@material-ui/icons/Category';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import ScheduleIcon from '@material-ui/icons/Schedule';
-
+import AddIcon from '@material-ui/icons/Add';
 import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
@@ -52,6 +52,10 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.up('sm')]: {
             display: 'none',
         },
+    },
+    addButton: {
+        marginRight: theme.spacing(2),
+        marginLeft: "auto",
     },
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
@@ -167,9 +171,10 @@ function Home(props) {
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <AppBar position="fixed" className={classes.appBar} >
+            <AppBar position="fixed" className={classes.appBar} color="secondary" >
 
                 <Toolbar>
+
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -179,7 +184,19 @@ function Home(props) {
                     >
                         <MenuIcon />
                     </IconButton>
+                    <Typography className={classes.title} variant="h6" noWrap >
+                        Schedule
+                    </Typography>
 
+                    <IconButton
+                        color="inherit"
+                        aria-label="Add Task"
+                        edge="end"
+                        onClick
+                        className={classes.addButton}
+                    >
+                        <AddIcon />
+                    </IconButton>
                 </Toolbar>
             </AppBar>
             <nav className={classes.drawer} aria-label="mailbox folders">
