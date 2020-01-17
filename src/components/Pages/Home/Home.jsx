@@ -27,6 +27,8 @@ import AddIcon from '@material-ui/icons/Add';
 import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import DatePicker from '../DatePicker/DatePicker';
+import Grid from '@material-ui/core/Grid';
 
 const drawerWidth = 290;
 
@@ -53,8 +55,7 @@ const useStyles = makeStyles(theme => ({
             display: 'none',
         },
     },
-    addButton: {
-        marginRight: theme.spacing(2),
+    datePicker: {
         marginLeft: "auto",
     },
     toolbar: theme.mixins.toolbar,
@@ -64,44 +65,7 @@ const useStyles = makeStyles(theme => ({
     },
     content: {
         flexGrow: 1,
-        padding: theme.spacing(3),
-    },
-    search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: 'secondary',
-        '&:hover': {
-            backgroundColor: fade(theme.palette.common.white, 0.25),
-        },
-        marginLeft: 'auto',
-        width: '50%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(1),
-            width: 'auto',
-        },
-    },
-    searchIcon: {
-        width: theme.spacing(7),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    inputRoot: {
-        color: 'inherit',
-    },
-    inputInput: {
-        padding: theme.spacing(1, 1, 1, 7),
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: 120,
-            '&:focus': {
-                width: 200,
-            },
-        },
+        marginTop: theme.spacing(7),
     },
 }));
 
@@ -172,9 +136,7 @@ function Home(props) {
         <div className={classes.root}>
             <CssBaseline />
             <AppBar position="fixed" className={classes.appBar} color="secondary" >
-
                 <Toolbar>
-
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -184,19 +146,9 @@ function Home(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography className={classes.title} variant="h6" noWrap >
-                        Schedule
-                    </Typography>
-
-                    <IconButton
-                        color="inherit"
-                        aria-label="Add Task"
-                        edge="end"
-                        onClick
-                        className={classes.addButton}
-                    >
-                        <AddIcon />
-                    </IconButton>
+                    <div className={classes.datePicker}>
+                        <DatePicker />
+                    </div>
                 </Toolbar>
             </AppBar>
             <nav className={classes.drawer} aria-label="mailbox folders">
@@ -231,7 +183,23 @@ function Home(props) {
                     </Drawer>
                 </Hidden>
             </nav>
-            <Profile />
+
+            <div>
+                {     // CONTENT // 
+                }
+
+                <Grid
+                    container
+                    direction="column"
+                    justify="flext start"
+                    alignItems="center"
+                    className={classes.content}
+                >
+                    <Profile />
+
+                </Grid>
+
+            </div >
         </div >
     );
 }

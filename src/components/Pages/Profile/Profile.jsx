@@ -15,7 +15,6 @@ import Typography from '@material-ui/core/Typography';
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
     paper: {
-        marginTop: theme.spacing(8),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -33,7 +32,6 @@ const useStyles = makeStyles(theme => ({
     },
     content: {
         flexGrow: 1,
-        padding: theme.spacing(3),
     },
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
@@ -57,7 +55,7 @@ export default function Login() {
         <div>
             <div>
                 <main className={classes.content}>
-                    <div className={classes.toolbar} />
+
                     <Typography paragraph>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                         ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
