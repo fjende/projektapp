@@ -20,10 +20,11 @@ const useStyles = makeStyles(theme => ({
     },
     formControl: {
         margin: theme.spacing(2),
-        minWidth: 300,
+        width: '90%',
+        maxWidth: 400
     },
     selectEmpty: {
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(5),
     },
     table: {
         width: '100%'
@@ -51,7 +52,9 @@ export default function StatisticsContent() {
 
     return (
         <div className={classes.root}>
-            <Grid container spacing={2}>
+
+            <Grid container spacing={2} justify="center"
+                alignItems="center">
                 <Grid item xs={12}>
                     <FormControl className={classes.formControl}>
                         <InputLabel id="category-select">Category</InputLabel>

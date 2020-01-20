@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     datePicker: {
-        marginLeft: 'auto'
+        marginRight: theme.spacing(1)
     },
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
@@ -129,8 +129,7 @@ function Statistics(props) {
     return (
         <div className={classes.root}>
             <CssBaseline />
-
-            <AppBar position="fixed" className={classes.appBar} color="primary">
+            <AppBar position="fixed" className={classes.appBar} color="secondary">
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -177,15 +176,10 @@ function Statistics(props) {
                     </Drawer>
                 </Hidden>
             </nav>
-
             <div className={classes.content}>
-
                 <Paper variant="outlined">
-
                     <StatisticsContent />
-
                 </Paper>
-
             </div>
         </div >
     );

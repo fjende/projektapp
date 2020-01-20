@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     datePicker: {
-        marginLeft: 'auto'
+        marginRight: theme.spacing(1)
     },
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
     },
     content: {
         flexGrow: 1,
-        marginTop: theme.spacing(8)
+        marginTop: theme.spacing(7)
     }
 }));
 
@@ -125,7 +125,7 @@ function Categories(props) {
         <div className={classes.root}>
             <CssBaseline />
 
-            <AppBar position="fixed" className={classes.appBar} color="primary">
+            <AppBar position="fixed" className={classes.appBar} color="secondary">
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -177,14 +177,11 @@ function Categories(props) {
                 </Hidden>
             </nav>
 
-            <div>
+            <div className={classes.content}>
                 {
                     // CONTENT //
                 }
 
-                <Grid container direction="column" justify="flext start" alignItems="center" className={classes.content}>
-
-                </Grid>
             </div>
         </div>
     );
