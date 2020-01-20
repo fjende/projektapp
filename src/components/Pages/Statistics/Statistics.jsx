@@ -178,15 +178,14 @@ function Statistics(props) {
                 </Hidden>
             </nav>
 
-            <div>
-                <Grid direction="colum" justify="center"
-                    alignItems="stretch" className={classes.content}>
-                    <Paper variant="outlined">
+            <div className={classes.content}>
 
-                        <StatisticsContent />
+                <Paper variant="outlined">
 
-                    </Paper>
-                </Grid>
+                    <StatisticsContent />
+
+                </Paper>
+
             </div>
         </div >
     );
