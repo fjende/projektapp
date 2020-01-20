@@ -3,6 +3,9 @@ import Login from '../Pages/Login/Login';
 import Register from '../Pages/Login/Register';
 import Home from '../Pages/Home/Home';
 import Profile from '../Pages/Profile/Profile';
+import Tasks from '../Pages/Tasks/Tasks'
+import Categories from '../Pages/Categories/Categories'
+import Statistics from '../Pages/Statistics/Statistics'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { ThemeProvider } from '@material-ui/styles';
@@ -34,7 +37,11 @@ export class App extends Component {
             <Route path="/" exact component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/home" exact component={Home} />
+            <Route path="/tasks" exact component={Tasks} />
             <Route path="/profile" exact component={Profile} />
+            <Route path="/categories" exact component={Categories} />
+            <Route path="/statistics" exact component={Statistics} />
+
           </Switch>
         </Router>
       </ThemeProvider>

@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function Home(props) {
+function Categories(props) {
     const { container } = props;
     const classes = useStyles();
     const theme = useTheme();
@@ -109,10 +109,9 @@ function Home(props) {
                     </ListItemIcon>
                     <ListItemText primary="Statistics" />
                 </ListItem>
-
             </List>
             <List style={{ position: 'absolute', bottom: 0, marginLeft: 15 }}>
-                <ListItem button component="a" key="Logout" href="/logout">
+                <ListItem button component="a" key="Logout" href="/Logout">
                     <ListItemIcon>
                         <ExitToAppIcon />
                     </ListItemIcon>
@@ -138,7 +137,7 @@ function Home(props) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.datePicker}>
-                        Schedule
+                        Categories
           </Typography>
                     {/**    <div className={classes.datePicker}>
                         <DatePicker />
@@ -184,14 +183,14 @@ function Home(props) {
                 }
 
                 <Grid container direction="column" justify="flext start" alignItems="center" className={classes.content}>
-                    <Schedule />
+
                 </Grid>
             </div>
         </div>
     );
 }
 
-Home.propTypes = {
+Categories.propTypes = {
     /**
      * Injected by the documentation to work in an iframe.
      * You won't need it on your project.
@@ -199,4 +198,4 @@ Home.propTypes = {
     container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element)
 };
 
-export default Home;
+export default Categories;

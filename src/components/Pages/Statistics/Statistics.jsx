@@ -30,6 +30,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import DatePicker from '../DatePicker/DatePicker';
 import Grid from '@material-ui/core/Grid';
+import StatisticsContent from './StatisticsContent'
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
 
 const drawerWidth = 290;
 
@@ -68,7 +71,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function Home(props) {
+function Statistics(props) {
     const { container } = props;
     const classes = useStyles();
     const theme = useTheme();
@@ -138,7 +141,7 @@ function Home(props) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.datePicker}>
-                        Schedule
+                        Statistics
           </Typography>
                     {/**    <div className={classes.datePicker}>
                         <DatePicker />
@@ -179,19 +182,21 @@ function Home(props) {
             </nav>
 
             <div>
-                {
-                    // CONTENT //
-                }
+                <Grid container direction="colum" justify="center"
+                    alignItems="stretch" className={classes.content}>
+                    <Paper>
+                        <Grid item>
+                            <StatisticsContent />
 
-                <Grid container direction="column" justify="flext start" alignItems="center" className={classes.content}>
-                    <Schedule />
+                        </Grid>
+                    </Paper>
                 </Grid>
             </div>
-        </div>
+        </div >
     );
 }
 
-Home.propTypes = {
+Statistics.propTypes = {
     /**
      * Injected by the documentation to work in an iframe.
      * You won't need it on your project.
@@ -199,4 +204,4 @@ Home.propTypes = {
     container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element)
 };
 
-export default Home;
+export default Statistics;

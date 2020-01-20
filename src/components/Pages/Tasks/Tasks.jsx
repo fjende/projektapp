@@ -30,6 +30,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import DatePicker from '../DatePicker/DatePicker';
 import Grid from '@material-ui/core/Grid';
+import TaskList from './TaskList'
 
 const drawerWidth = 290;
 
@@ -68,7 +69,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function Home(props) {
+function Tasks(props) {
     const { container } = props;
     const classes = useStyles();
     const theme = useTheme();
@@ -112,7 +113,7 @@ function Home(props) {
 
             </List>
             <List style={{ position: 'absolute', bottom: 0, marginLeft: 15 }}>
-                <ListItem button component="a" key="Logout" href="/logout">
+                <ListItem button component="a" key="Logout" href="/Logout">
                     <ListItemIcon>
                         <ExitToAppIcon />
                     </ListItemIcon>
@@ -138,7 +139,7 @@ function Home(props) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.datePicker}>
-                        Schedule
+                        Tasks
           </Typography>
                     {/**    <div className={classes.datePicker}>
                         <DatePicker />
@@ -179,19 +180,17 @@ function Home(props) {
             </nav>
 
             <div>
-                {
-                    // CONTENT //
-                }
-
                 <Grid container direction="column" justify="flext start" alignItems="center" className={classes.content}>
-                    <Schedule />
+
+                    {//     <TaskList /> 
+                    }
                 </Grid>
             </div>
         </div>
     );
 }
 
-Home.propTypes = {
+Tasks.propTypes = {
     /**
      * Injected by the documentation to work in an iframe.
      * You won't need it on your project.
@@ -199,4 +198,4 @@ Home.propTypes = {
     container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element)
 };
 
-export default Home;
+export default Tasks;
