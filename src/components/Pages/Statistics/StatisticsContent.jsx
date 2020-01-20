@@ -20,13 +20,13 @@ const useStyles = makeStyles(theme => ({
     },
     formControl: {
         margin: theme.spacing(2),
-        width: '65%',
+        width: '70%',
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
     table: {
-        width: '400'
+        width: '100%'
     },
 }));
 function createData(name, timespent, ntasks, nfuturetasks, tfuture) {
@@ -51,7 +51,7 @@ export default function StatisticsContent() {
 
     return (
         <div className={classes.root}>
-            <Grid container spacing={3}>
+            <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <FormControl className={classes.formControl}>
                         <InputLabel id="category-select">Category</InputLabel>
@@ -67,7 +67,7 @@ export default function StatisticsContent() {
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item item xs={12}>
+                <Grid item xs={12}>
                     <TableContainer component={Paper}>
                         <Table className={classes.table} aria-label="statistics table">
                             <TableBody>
