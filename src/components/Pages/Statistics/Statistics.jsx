@@ -38,7 +38,8 @@ const drawerWidth = 290;
 
 const useStyles = makeStyles(theme => ({
     root: {
-        display: 'flex'
+        display: 'flex',
+        flexGrow: 1,
     },
     drawer: {
         [theme.breakpoints.up('sm')]: {
@@ -142,14 +143,10 @@ function Statistics(props) {
                     </IconButton>
                     <Typography variant="h6" className={classes.datePicker}>
                         Statistics
-          </Typography>
-                    {/**    <div className={classes.datePicker}>
-                        <DatePicker />
-                     </div> **/}
+                     </Typography>
                 </Toolbar>
             </AppBar>
             <nav className={classes.drawer} aria-label="drawer-nav">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Hidden smUp implementation="css">
                     <Drawer
                         container={container}
@@ -161,7 +158,7 @@ function Statistics(props) {
                             paper: classes.drawerPaper
                         }}
                         ModalProps={{
-                            keepMounted: true // Better open performance on mobile.
+                            keepMounted: true
                         }}
                     >
                         {drawer}
@@ -182,13 +179,12 @@ function Statistics(props) {
             </nav>
 
             <div>
-                <Grid container direction="colum" justify="center"
+                <Grid direction="colum" justify="center"
                     alignItems="stretch" className={classes.content}>
-                    <Paper>
-                        <Grid item>
-                            <StatisticsContent />
+                    <Paper variant="outlined">
 
-                        </Grid>
+                        <StatisticsContent />
+
                     </Paper>
                 </Grid>
             </div>
@@ -196,12 +192,5 @@ function Statistics(props) {
     );
 }
 
-Statistics.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
-    container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element)
-};
 
 export default Statistics;

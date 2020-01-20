@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     },
     formControl: {
         margin: theme.spacing(2),
-        minWidth: '65%',
+        width: '65%',
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
@@ -67,7 +67,7 @@ export default function StatisticsContent() {
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item>
+                <Grid item item xs={12}>
                     <TableContainer component={Paper}>
                         <Table className={classes.table} aria-label="statistics table">
                             <TableBody>
