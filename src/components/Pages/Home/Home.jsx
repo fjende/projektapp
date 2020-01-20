@@ -15,8 +15,9 @@ import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link'
+import Link from '@material-ui/core/Link';
 import Profile from '../Profile/Profile';
+import Schedule from '../Schedule/Schedule';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AssignmentIcon from '@material-ui/icons/Assignment';
@@ -33,183 +34,174 @@ import Grid from '@material-ui/core/Grid';
 const drawerWidth = 290;
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        display: 'flex',
-    },
-    drawer: {
-        [theme.breakpoints.up('sm')]: {
-            width: drawerWidth,
-            flexShrink: 0,
-        },
-    },
-    appBar: {
-        [theme.breakpoints.up('sm')]: {
-            width: `calc(100% - ${drawerWidth}px)`,
-            marginLeft: drawerWidth,
-        },
-
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-        [theme.breakpoints.up('sm')]: {
-            display: 'none',
-        },
-    },
-    datePicker: {
-        marginLeft: "auto",
-    },
-    toolbar: theme.mixins.toolbar,
-    drawerPaper: {
-        width: drawerWidth,
-
-    },
-    content: {
-        flexGrow: 1,
-        marginTop: theme.spacing(7),
-    },
+  root: {
+    display: 'flex'
+  },
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0
+    }
+  },
+  appBar: {
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth
+    }
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      display: 'none'
+    }
+  },
+  datePicker: {
+    marginLeft: 'auto'
+  },
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth
+  },
+  content: {
+    flexGrow: 1,
+    marginTop: theme.spacing(7)
+  }
 }));
 
 function Home(props) {
-    const { container } = props;
-    const classes = useStyles();
-    const theme = useTheme();
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { container } = props;
+  const classes = useStyles();
+  const theme = useTheme();
+  const [mobileOpen, setMobileOpen] = React.useState(false);
 
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
-    const drawer = (
-        <div>
-            <div className={classes.toolbar} />
-            <Divider />
-            <List style={{ marginLeft: 10 }}>
+  const drawer = (
+    <div>
+      <div className={classes.toolbar} />
+      <Divider />
+      <List style={{ marginLeft: 10 }}>
+        <ListItem button component="a" key="Schedule" href="/home">
+          <ListItemIcon>
+            <ScheduleIcon />
+          </ListItemIcon>
+          <ListItemText primary="Schedule" />
+        </ListItem>
 
-                <ListItem button component="a" key='Schedule' href="/home">
+        <ListItem button component="a" key="Tasks" href="/tasks">
+          <ListItemIcon>
+            <AssignmentIcon />
+          </ListItemIcon>
+          <ListItemText primary="Tasks" />
+        </ListItem>
+        <ListItem button component="a" key="Categories" href="/categories">
+          <ListItemIcon>
+            <CategoryIcon />
+          </ListItemIcon>
+          <ListItemText primary="Categories" />
+        </ListItem>
 
-                    <ListItemIcon><ScheduleIcon /></ListItemIcon>
-                    <ListItemText primary='Schedule' />
+        <ListItem button component="a" key="Statistics" href="/statistics">
+          <ListItemIcon>
+            <EqualizerIcon />
+          </ListItemIcon>
+          <ListItemText primary="Statistics" />
+        </ListItem>
+        <ListItem button component="a" key="Profile" href="/profile">
+          <ListItemIcon>
+            <AccountCircleIcon />
+          </ListItemIcon>
+          <ListItemText primary="Profile" />
+        </ListItem>
+      </List>
+      <List style={{ position: 'absolute', bottom: 0, marginLeft: 15 }}>
+        <ListItem button component="a" key="Logout" href="/Logout">
+          <ListItemIcon>
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItem>
+      </List>
+    </div>
+  );
 
-                </ListItem>
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
 
-                <ListItem button component="a" key='Tasks' href="/tasks">
-
-                    <ListItemIcon><AssignmentIcon /></ListItemIcon>
-                    <ListItemText primary='Tasks' />
-
-                </ListItem>
-                <ListItem button component="a" key='Categories' href="/categories">
-
-                    <ListItemIcon><CategoryIcon /></ListItemIcon>
-                    <ListItemText primary='Categories' />
-
-                </ListItem>
-
-                <ListItem button component="a" key='Statistics' href="/statistics">
-
-                    <ListItemIcon><EqualizerIcon /></ListItemIcon>
-                    <ListItemText primary='Statistics' />
-
-                </ListItem>
-                <ListItem button component="a" key='Profile' href="/profile">
-
-                    <ListItemIcon><AccountCircleIcon /></ListItemIcon>
-                    <ListItemText primary='Profile' />
-
-                </ListItem>
-            </List>
-            <List style={{ position: 'absolute', bottom: 0, marginLeft: 15 }}>
-                <ListItem button component="a" key='Logout' href="/Logout" >
-
-                    <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                    <ListItemText primary='Logout' />
-
-                </ListItem>
-
-
-            </List>
-
-        </div >
-    );
-
-    return (
-        <div className={classes.root}>
-            <CssBaseline />
-            <AppBar position="fixed" className={classes.appBar} color="secondary" >
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        className={classes.menuButton}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <div className={classes.datePicker}>
+      <AppBar position="fixed" className={classes.appBar} color="secondary">
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            className={classes.menuButton}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.datePicker}>
+            Schedule
+          </Typography>
+          {/**    <div className={classes.datePicker}>
                         <DatePicker />
-                    </div>
-                </Toolbar>
-            </AppBar>
-            <nav className={classes.drawer} aria-label="mailbox folders">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                <Hidden smUp implementation="css">
-                    <Drawer
-                        container={container}
-                        variant="temporary"
-                        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                        open={mobileOpen}
-                        onClose={handleDrawerToggle}
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        ModalProps={{
-                            keepMounted: true, // Better open performance on mobile.
-                        }}
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-                <Hidden xsDown implementation="css">
-                    <Drawer
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        variant="permanent"
-                        open
-                        container={container}
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-            </nav>
+                     </div> **/}
+        </Toolbar>
+      </AppBar>
+      <nav className={classes.drawer} aria-label="drawer-nav">
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        <Hidden smUp implementation="css">
+          <Drawer
+            container={container}
+            variant="temporary"
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper
+            }}
+            ModalProps={{
+              keepMounted: true // Better open performance on mobile.
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden xsDown implementation="css">
+          <Drawer
+            classes={{
+              paper: classes.drawerPaper
+            }}
+            variant="permanent"
+            open
+            container={container}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+      </nav>
 
-            <div>
-                {     // CONTENT // 
-                }
+      <div>
+        {
+          // CONTENT //
+        }
 
-                <Grid
-                    container
-                    direction="column"
-                    justify="flext start"
-                    alignItems="center"
-                    className={classes.content}
-                >
-                    <Profile />
-
-                </Grid>
-
-            </div >
-        </div >
-    );
+        <Grid container direction="column" justify="flext start" alignItems="center" className={classes.content}>
+          <Schedule />
+        </Grid>
+      </div>
+    </div>
+  );
 }
 
 Home.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
-    container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element),
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element)
 };
 
 export default Home;
