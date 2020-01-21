@@ -28,9 +28,9 @@ import AddIcon from '@material-ui/icons/Add';
 import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import DatePicker from '../DatePicker/DatePicker';
 import Grid from '@material-ui/core/Grid';
 import TaskList from './TaskList'
+import Paper from '@material-ui/core/Paper';
 
 const drawerWidth = 290;
 
@@ -179,12 +179,10 @@ function Tasks(props) {
                 </Hidden>
             </nav>
 
-            <div>
-                <Grid container direction="column" justify="flext start" alignItems="center" className={classes.content}>
-
-                    {//     <TaskList /> 
-                    }
-                </Grid>
+            <div className={classes.content}>
+                <Paper variant="outlined">
+                    <TaskList />
+                </Paper>
             </div>
         </div>
     );

@@ -20,52 +20,45 @@ import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import ClearIcon from '@material-ui/icons/Clear';
 import CancelIcon from '@material-ui/icons/Cancel';
+import axios from "axios";
 
 
 
-export default function MaterialTableDemo() {
+export default function CategoriesList() {
     const [state, setState] = React.useState({
         columns: [
             { title: 'Name', field: 'name' }
         ],
-        data: [
-
-            {
-                name: 'Sport',
-            },
-            {
-                name: 'Ucenje',
-            },
-            {
-                name: 'Its',
-            },
-            {
-                name: 'Lit',
-            },
-            {
-                name: 'Parti',
-            },
-        ],
+        data: [{
+            id: "",
+            name: ""
+        }]
     });
 
     return (
         <MaterialTable
             columns={state.columns}
-            data={state.data}
+            data={query =>
+                new Promise((resolve, reject) => {
+                    let url = 'http://127.0.0.1:3000/activity-type/'
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(result => {
+                            resolve({
+                                data: result
+                            })
+                            console.log(result);
+                        })
+                })}
             options={{
                 paging: false,
                 showTitle: false,
                 searchFieldAlignment: 'left',
-                searchFieldStyle: {
-
-                },
                 headerStyle: {
                     color: '#00b0ff',
-
                 },
                 actionsCellStyle: {
                     color: '#6d6d6e',
-
                 }
 
             }}
@@ -89,40 +82,46 @@ export default function MaterialTableDemo() {
                 Clear: ClearIcon,
                 SortArrow: ArrowUpward
             }}
+
             editable={{
-                onRowAdd: newData =>
+                onRowAdd: (newData) =>
                     new Promise(resolve => {
                         setTimeout(() => {
                             resolve();
-                            setState(prevState => {
-                                const data = [...prevState.data];
-                                data.push(newData);
-                                return { ...prevState, data };
-                            });
+                            const data = [...state.data];
+                            axios
+                                .post('http://127.0.0.1:3000/activity-type/', newData)
+                                .then(res => console.log(res.data));
+                            setState({ ...state, data });
                         }, 600);
                     }),
                 onRowUpdate: (newData, oldData) =>
                     new Promise(resolve => {
                         setTimeout(() => {
                             resolve();
-                            if (oldData) {
-                                setState(prevState => {
-                                    const data = [...prevState.data];
-                                    data[data.indexOf(oldData)] = newData;
-                                    return { ...prevState, data };
-                                });
-                            }
+                            const data = [...state.data];
+                            console.log("Update id:");
+                            console.log(oldData.id);
+
+                            data[data.indexOf(oldData)] = newData;
+                            axios
+                                .put('http://127.0.0.1:3000/activity-type/' + oldData.id, newData)
+                                .then(res => console.log(res.data));
+                            setState({ ...state, data });
                         }, 600);
                     }),
                 onRowDelete: oldData =>
                     new Promise(resolve => {
                         setTimeout(() => {
                             resolve();
-                            setState(prevState => {
-                                const data = [...prevState.data];
-                                data.splice(data.indexOf(oldData), 1);
-                                return { ...prevState, data };
-                            });
+                            const data = [...state.data];
+                            console.log("Delte id:");
+                            console.log(oldData.id);
+                            data.splice(data.indexOf(oldData), 1);
+                            axios
+                                .delete('http://127.0.0.1:3000/activity-type/' + oldData.id)
+                                .then(res => console.log(res.data));
+                            setState({ ...state, data });
                         }, 600);
                     }),
             }}
