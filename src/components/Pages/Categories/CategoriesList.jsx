@@ -23,7 +23,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 
 
 
-export default function MaterialTableDemo() {
+export default function CategoriesList() {
     const [state, setState] = React.useState({
         columns: [
             { title: 'Name', field: 'name' }
