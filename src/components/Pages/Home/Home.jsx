@@ -28,7 +28,6 @@ import AddIcon from '@material-ui/icons/Add';
 import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import DatePicker from '../DatePicker/DatePicker';
 import Grid from '@material-ui/core/Grid';
 
 const drawerWidth = 290;
