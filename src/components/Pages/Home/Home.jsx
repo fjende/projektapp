@@ -139,13 +139,9 @@ function Home(props) {
                     <Typography variant="h6" className={classes.datePicker}>
                         Schedule
                   </Typography>
-                    {/**    <div className={classes.datePicker}>
-                        <DatePicker />
-                     </div> **/}
                 </Toolbar>
             </AppBar>
             <nav className={classes.drawer} aria-label="drawer-nav">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Hidden smUp implementation="css">
                     <Drawer
                         container={container}
@@ -157,7 +153,7 @@ function Home(props) {
                             paper: classes.drawerPaper
                         }}
                         ModalProps={{
-                            keepMounted: true // Better open performance on mobile.
+                            keepMounted: true
                         }}
                     >
                         {drawer}
@@ -176,22 +172,11 @@ function Home(props) {
                     </Drawer>
                 </Hidden>
             </nav>
-
             <div className={classes.content}>
-
                 <Schedule />
-
             </div>
         </div>
     );
 }
-
-Home.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
-    container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element)
-};
 
 export default Home;
