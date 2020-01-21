@@ -51,8 +51,9 @@ export default function Login(props) {
                 email: values.email,
                 password: values.password
               })
-              .then(() => {
+              .then(response => {
                 sessionStorage.setItem('loggedIn', true);
+                sessionStorage.setItem('userId', response.data.id);
                 props.history.push('/home');
               })
               .catch(() => alert('Wrong credentials!'))

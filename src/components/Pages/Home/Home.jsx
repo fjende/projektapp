@@ -117,6 +117,7 @@ function Home(props) {
           key="Logout"
           onClick={() => {
             sessionStorage.removeItem('loggedIn');
+            sessionStorage.removeItem('userId');
             props.history.push('/');
           }}
         >
