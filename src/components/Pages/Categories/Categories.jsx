@@ -30,6 +30,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import DatePicker from '../DatePicker/DatePicker';
 import Grid from '@material-ui/core/Grid';
+import CategoriesList from './CategoriesList'
+import Paper from '@material-ui/core/Paper'
 
 const drawerWidth = 290;
 
@@ -64,7 +66,7 @@ const useStyles = makeStyles(theme => ({
     },
     content: {
         flexGrow: 1,
-        marginTop: theme.spacing(7)
+        marginTop: theme.spacing(8)
     }
 }));
 
@@ -124,7 +126,6 @@ function Categories(props) {
     return (
         <div className={classes.root}>
             <CssBaseline />
-
             <AppBar position="fixed" className={classes.appBar} color="secondary">
                 <Toolbar>
                     <IconButton
@@ -139,13 +140,9 @@ function Categories(props) {
                     <Typography variant="h6" className={classes.datePicker}>
                         Categories
           </Typography>
-                    {/**    <div className={classes.datePicker}>
-                        <DatePicker />
-                     </div> **/}
                 </Toolbar>
             </AppBar>
             <nav className={classes.drawer} aria-label="drawer-nav">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Hidden smUp implementation="css">
                     <Drawer
                         container={container}
@@ -157,7 +154,7 @@ function Categories(props) {
                             paper: classes.drawerPaper
                         }}
                         ModalProps={{
-                            keepMounted: true // Better open performance on mobile.
+                            keepMounted: true
                         }}
                     >
                         {drawer}
@@ -176,23 +173,14 @@ function Categories(props) {
                     </Drawer>
                 </Hidden>
             </nav>
-
             <div className={classes.content}>
-                {
-                    // CONTENT //
-                }
-
+                <Paper variant="outlined">
+                    <CategoriesList />
+                </Paper>
             </div>
         </div>
     );
 }
 
-Categories.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
-    container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element)
-};
 
 export default Categories;

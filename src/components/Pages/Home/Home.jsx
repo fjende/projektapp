@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
     },
     content: {
         flexGrow: 1,
-        marginTop: theme.spacing(7)
+        marginTop: theme.spacing(8)
     }
 }));
 
