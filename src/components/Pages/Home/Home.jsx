@@ -30,169 +30,175 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import DatePicker from '../DatePicker/DatePicker';
 import Grid from '@material-ui/core/Grid';
+import requireAuth from '../../HOCs/requireAuth';
 
 const drawerWidth = 290;
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        display: 'flex'
-    },
-    drawer: {
-        [theme.breakpoints.up('sm')]: {
-            width: drawerWidth,
-            flexShrink: 0
-        }
-    },
-    appBar: {
-        [theme.breakpoints.up('sm')]: {
-            width: `calc(100% - ${drawerWidth}px)`,
-            marginLeft: drawerWidth
-        }
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-        [theme.breakpoints.up('sm')]: {
-            display: 'none'
-        }
-    },
-    datePicker: {
-        marginRight: theme.spacing(1)
-    },
-    toolbar: theme.mixins.toolbar,
-    drawerPaper: {
-        width: drawerWidth
-    },
-    content: {
-        flexGrow: 1,
-        marginTop: theme.spacing(8)
+  root: {
+    display: 'flex'
+  },
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0
     }
+  },
+  appBar: {
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth
+    }
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      display: 'none'
+    }
+  },
+  datePicker: {
+    marginRight: theme.spacing(1)
+  },
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth
+  },
+  content: {
+    flexGrow: 1,
+    marginTop: theme.spacing(8)
+  }
 }));
 
 function Home(props) {
-    const { container } = props;
-    const classes = useStyles();
-    const theme = useTheme();
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { container } = props;
+  const classes = useStyles();
+  const theme = useTheme();
+  const [mobileOpen, setMobileOpen] = React.useState(false);
 
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
-    const drawer = (
-        <div>
-            <div className={classes.toolbar} />
-            <Divider />
-            <List style={{ marginLeft: 10 }}>
-                <ListItem button component="a" key="Schedule" href="/home">
-                    <ListItemIcon>
-                        <ScheduleIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Schedule" />
-                </ListItem>
+  const drawer = (
+    <div>
+      <div className={classes.toolbar} />
+      <Divider />
+      <List style={{ marginLeft: 10 }}>
+        <ListItem button component="a" key="Schedule" href="/home">
+          <ListItemIcon>
+            <ScheduleIcon />
+          </ListItemIcon>
+          <ListItemText primary="Schedule" />
+        </ListItem>
 
-                <ListItem button component="a" key="Tasks" href="/tasks">
-                    <ListItemIcon>
-                        <AssignmentIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Tasks" />
-                </ListItem>
-                <ListItem button component="a" key="Categories" href="/categories">
-                    <ListItemIcon>
-                        <CategoryIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Categories" />
-                </ListItem>
+        <ListItem button component="a" key="Tasks" href="/tasks">
+          <ListItemIcon>
+            <AssignmentIcon />
+          </ListItemIcon>
+          <ListItemText primary="Tasks" />
+        </ListItem>
+        <ListItem button component="a" key="Categories" href="/categories">
+          <ListItemIcon>
+            <CategoryIcon />
+          </ListItemIcon>
+          <ListItemText primary="Categories" />
+        </ListItem>
 
-                <ListItem button component="a" key="Statistics" href="/statistics">
-                    <ListItemIcon>
-                        <EqualizerIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Statistics" />
-                </ListItem>
+        <ListItem button component="a" key="Statistics" href="/statistics">
+          <ListItemIcon>
+            <EqualizerIcon />
+          </ListItemIcon>
+          <ListItemText primary="Statistics" />
+        </ListItem>
+      </List>
+      <List style={{ position: 'absolute', bottom: 0, marginLeft: 15 }}>
+        <ListItem
+          button
+          component="a"
+          key="Logout"
+          onClick={() => {
+            sessionStorage.removeItem('loggedIn');
+            props.history.push('/');
+          }}
+        >
+          <ListItemIcon>
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItem>
+      </List>
+    </div>
+  );
 
-            </List>
-            <List style={{ position: 'absolute', bottom: 0, marginLeft: 15 }}>
-                <ListItem button component="a" key="Logout" href="/logout">
-                    <ListItemIcon>
-                        <ExitToAppIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Logout" />
-                </ListItem>
-            </List>
-        </div>
-    );
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
 
-    return (
-        <div className={classes.root}>
-            <CssBaseline />
-
-            <AppBar position="fixed" className={classes.appBar} color="secondary">
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        className={classes.menuButton}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" className={classes.datePicker}>
-                        Schedule
-                  </Typography>
-                    {/**    <div className={classes.datePicker}>
+      <AppBar position="fixed" className={classes.appBar} color="secondary">
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            className={classes.menuButton}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.datePicker}>
+            Schedule
+          </Typography>
+          {/**    <div className={classes.datePicker}>
                         <DatePicker />
                      </div> **/}
-                </Toolbar>
-            </AppBar>
-            <nav className={classes.drawer} aria-label="drawer-nav">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                <Hidden smUp implementation="css">
-                    <Drawer
-                        container={container}
-                        variant="temporary"
-                        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                        open={mobileOpen}
-                        onClose={handleDrawerToggle}
-                        classes={{
-                            paper: classes.drawerPaper
-                        }}
-                        ModalProps={{
-                            keepMounted: true // Better open performance on mobile.
-                        }}
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-                <Hidden xsDown implementation="css">
-                    <Drawer
-                        classes={{
-                            paper: classes.drawerPaper
-                        }}
-                        variant="permanent"
-                        open
-                        container={container}
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-            </nav>
+        </Toolbar>
+      </AppBar>
+      <nav className={classes.drawer} aria-label="drawer-nav">
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        <Hidden smUp implementation="css">
+          <Drawer
+            container={container}
+            variant="temporary"
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper
+            }}
+            ModalProps={{
+              keepMounted: true // Better open performance on mobile.
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden xsDown implementation="css">
+          <Drawer
+            classes={{
+              paper: classes.drawerPaper
+            }}
+            variant="permanent"
+            open
+            container={container}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+      </nav>
 
-            <div className={classes.content}>
-
-                <Schedule />
-
-            </div>
-        </div>
-    );
+      <div className={classes.content}>
+        <Schedule />
+      </div>
+    </div>
+  );
 }
 
 Home.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
-    container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element)
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element)
 };
 
-export default Home;
+export default requireAuth(Home);

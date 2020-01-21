@@ -52,8 +52,8 @@ export default function Login(props) {
                 password: values.password
               })
               .then(() => {
-                props.history.push('/home');
                 sessionStorage.setItem('loggedIn', true);
+                props.history.push('/home');
               })
               .catch(() => alert('Wrong credentials!'))
               .finally(() => formikBag.resetForm());
