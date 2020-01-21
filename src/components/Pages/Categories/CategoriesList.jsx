@@ -101,11 +101,7 @@ export default function CategoriesList() {
                             const data = [...state.data];
                             data[data.indexOf(oldData)] = newData;
                             axios
-                                .put("http://localhost:8080/activity_type", newData, {
-                                    params: {
-                                        id: state.data[0].id
-                                    }
-                                })
+                                .put('http://localhost:8080/activity_type/' + state.data[0].id, newData)
                                 .then(res => console.log(res.data));
                             setState({ ...state, data });
                         }, 600);
