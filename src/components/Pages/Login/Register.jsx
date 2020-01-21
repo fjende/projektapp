@@ -68,7 +68,6 @@ export default function Register(props) {
             password: ''
           }}
           render={formikProps => {
-            console.log(formikProps.values);
             return (
               <Form className={classes.form}>
                 <Grid container spacing={2}>
