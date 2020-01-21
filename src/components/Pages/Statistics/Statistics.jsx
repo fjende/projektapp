@@ -115,7 +115,16 @@ function Statistics(props) {
 
             </List>
             <List style={{ position: 'absolute', bottom: 0, marginLeft: 15 }}>
-                <ListItem button component="a" key="Logout" href="/logout">
+                <ListItem
+                    button
+                    component="a"
+                    key="Logout"
+                    onClick={() => {
+                        sessionStorage.removeItem('loggedIn');
+                        sessionStorage.removeItem('userId');
+                        props.history.push('/');
+                    }}
+                >
                     <ListItemIcon>
                         <ExitToAppIcon />
                     </ListItemIcon>

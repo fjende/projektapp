@@ -27,11 +27,13 @@ import axios from "axios";
 export default function CategoriesList() {
     const [state, setState] = React.useState({
         columns: [
-            { title: 'Name', field: 'name' }
+            { title: 'Name', field: 'name' },
+
         ],
         data: [{
             id: "",
-            name: ""
+            name: "",
+
         }]
     });
 
