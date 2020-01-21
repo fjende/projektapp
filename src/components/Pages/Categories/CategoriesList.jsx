@@ -82,16 +82,17 @@ export default function CategoriesList() {
                 Clear: ClearIcon,
                 SortArrow: ArrowUpward
             }}
+
             editable={{
-                onRowAdd: newData =>
+                onRowAdd: (newData) =>
                     new Promise(resolve => {
                         setTimeout(() => {
                             resolve();
-                            setState(prevState => {
-                                const data = [...prevState.data];
-                                data.push(newData);
-                                return { ...prevState, data };
-                            });
+                            const data = [...state.data];
+                            axios
+                                .post('http://127.0.0.1:3000/activity-type/', newData)
+                                .then(res => console.log(res.data));
+                            setState({ ...state, data });
                         }, 600);
                     }),
                 onRowUpdate: (newData, oldData) =>
@@ -99,9 +100,12 @@ export default function CategoriesList() {
                         setTimeout(() => {
                             resolve();
                             const data = [...state.data];
+                            console.log("Update id:");
+                            console.log(oldData.id);
+
                             data[data.indexOf(oldData)] = newData;
                             axios
-                                .put('http://localhost:8080/activity_type/' + state.data[0].id, newData)
+                                .put('http://127.0.0.1:3000/activity-type/' + oldData.id, newData)
                                 .then(res => console.log(res.data));
                             setState({ ...state, data });
                         }, 600);
@@ -110,11 +114,14 @@ export default function CategoriesList() {
                     new Promise(resolve => {
                         setTimeout(() => {
                             resolve();
-                            setState(prevState => {
-                                const data = [...prevState.data];
-                                data.splice(data.indexOf(oldData), 1);
-                                return { ...prevState, data };
-                            });
+                            const data = [...state.data];
+                            console.log("Delte id:");
+                            console.log(oldData.id);
+                            data.splice(data.indexOf(oldData), 1);
+                            axios
+                                .delete('http://127.0.0.1:3000/activity-type/' + oldData.id)
+                                .then(res => console.log(res.data));
+                            setState({ ...state, data });
                         }, 600);
                     }),
             }}
