@@ -31,41 +31,45 @@ import InputBase from '@material-ui/core/InputBase';
 import Grid from '@material-ui/core/Grid';
 import TaskList from './TaskList';
 import Paper from '@material-ui/core/Paper';
-import NavBar from '../Nav/NavBar'
+import NavBar from '../Nav/NavBar';
+import NewTaskList from './NewTaskList';
 
 const drawerWidth = 290;
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        display: 'flex',
-        flexGrow: 1,
-    },
-    content: {
-        flexGrow: 1,
-        marginTop: theme.spacing(8),
-        [theme.breakpoints.up('sm')]: {
-            width: `calc(100% - ${drawerWidth}px)`,
-            marginLeft: 0
-        }
+  root: {
+    display: 'flex',
+    flexGrow: 1
+  },
+  content: {
+    flexGrow: 1,
+    marginTop: theme.spacing(8),
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: 0
     }
+  },
+  top: {
+    borderTop: 'solid 1px rgba(0, 0, 0, 0.12)'
+  }
 }));
 
 function Tasks(props) {
-    const { container } = props;
-    const classes = useStyles();
-    const theme = useTheme();
+  const { container } = props;
+  const classes = useStyles();
+  const theme = useTheme();
 
-    return (
-        <div className={classes.root}>
-            <CssBaseline />
-            <NavBar />
-            <div className={classes.content}>
-                <Paper variant="outlined">
-                    <TaskList />
-                </Paper>
-            </div>
-        </div>
-    );
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
+      <NavBar />
+      <div className={classes.content}>
+        <Paper className={classes.top}>
+          <NewTaskList />
+        </Paper>
+      </div>
+    </div>
+  );
 }
 
 export default Tasks;
