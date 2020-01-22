@@ -112,8 +112,14 @@ function Statistics(props) {
                     </ListItemIcon>
                     <ListItemText primary="Statistics" />
                 </ListItem>
+                <ListItem button component="a" key='Profile' href="/profile">
 
+                    <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+                    <ListItemText primary='Profile' />
+
+                </ListItem>
             </List>
+
             <List style={{ position: 'absolute', bottom: 0, marginLeft: 15 }}>
                 <ListItem
                     button

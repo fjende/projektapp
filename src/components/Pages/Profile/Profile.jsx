@@ -29,12 +29,15 @@ import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import ProfileContent from './ProfileContent';
 
 const drawerWidth = 290;
 
 const useStyles = makeStyles(theme => ({
     root: {
-        display: 'flex'
+        display: 'flex',
+        flexGrow: 1,
     },
     drawer: {
         [theme.breakpoints.up('sm')]: {
@@ -49,13 +52,13 @@ const useStyles = makeStyles(theme => ({
         }
     },
     menuButton: {
-        marginRight: theme.spacing(2),
+        marginRight: theme.spacing(1),
         [theme.breakpoints.up('sm')]: {
             display: 'none'
         }
     },
     datePicker: {
-        marginLeft: 'auto'
+        marginRight: theme.spacing(1)
     },
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
@@ -108,7 +111,12 @@ function Profle(props) {
                     </ListItemIcon>
                     <ListItemText primary="Statistics" />
                 </ListItem>
+                <ListItem button component="a" key='Profile' href="/profile">
 
+                    <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+                    <ListItemText primary='Profile' />
+
+                </ListItem>
             </List>
             <List style={{ position: 'absolute', bottom: 0, marginLeft: 15 }}>
                 <ListItem button component="a" key="Logout" href="/logout">
@@ -124,8 +132,7 @@ function Profle(props) {
     return (
         <div className={classes.root}>
             <CssBaseline />
-
-            <AppBar position="fixed" className={classes.appBar} color="primary">
+            <AppBar position="fixed" className={classes.appBar} color="secondary">
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -138,14 +145,10 @@ function Profle(props) {
                     </IconButton>
                     <Typography variant="h6" className={classes.datePicker}>
                         Profile
-          </Typography>
-                    {/**    <div className={classes.datePicker}>
-                        <DatePicker />
-                     </div> **/}
+                  </Typography>
                 </Toolbar>
             </AppBar>
             <nav className={classes.drawer} aria-label="drawer-nav">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Hidden smUp implementation="css">
                     <Drawer
                         container={container}
@@ -157,7 +160,7 @@ function Profle(props) {
                             paper: classes.drawerPaper
                         }}
                         ModalProps={{
-                            keepMounted: true // Better open performance on mobile.
+                            keepMounted: true
                         }}
                     >
                         {drawer}
@@ -176,15 +179,10 @@ function Profle(props) {
                     </Drawer>
                 </Hidden>
             </nav>
-
-            <div>
-                {
-                    // CONTENT //
-                }
-
-                <Grid container direction="column" justify="flext start" alignItems="center" className={classes.content}>
-
-                </Grid>
+            <div className={classes.content}>
+                <Paper variant="outlined">
+                    <ProfileContent />
+                </Paper>
             </div>
         </div>
     );

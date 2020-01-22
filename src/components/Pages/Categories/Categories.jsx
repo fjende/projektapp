@@ -110,7 +110,14 @@ function Categories(props) {
                     </ListItemIcon>
                     <ListItemText primary="Statistics" />
                 </ListItem>
+                <ListItem button component="a" key='Profile' href="/profile">
+
+                    <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+                    <ListItemText primary='Profile' />
+
+                </ListItem>
             </List>
+
             <List style={{ position: 'absolute', bottom: 0, marginLeft: 15 }}>
                 <ListItem
                     button
@@ -147,7 +154,7 @@ function Categories(props) {
                     </IconButton>
                     <Typography variant="h6" className={classes.datePicker}>
                         Categories
-          </Typography>
+                      </Typography>
                 </Toolbar>
             </AppBar>
             <nav className={classes.drawer} aria-label="drawer-nav">
