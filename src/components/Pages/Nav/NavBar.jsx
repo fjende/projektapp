@@ -37,7 +37,6 @@ const drawerWidth = 290;
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
-        flexGrow: 1,
     },
     drawer: {
         [theme.breakpoints.up('sm')]: {

@@ -107,7 +107,7 @@ function UserModal({ userData, open, onClose, ...rest }) {
                                         Cancel
                                     </Button>
                                     <Button type="submit" color="primary">
-                                        Save
+                                        Edit
                                     </Button>
                                 </DialogActions>
                             </Form>
