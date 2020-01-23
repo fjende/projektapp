@@ -29,7 +29,7 @@ import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Grid from '@material-ui/core/Grid';
-import CategoriesList from './CategoriesList'
+import NewCategoriesList from './NewCategoriesList'
 import Paper from '@material-ui/core/Paper'
 import NavBar from '../Nav/NavBar'
 
@@ -57,10 +57,10 @@ function Categories(props) {
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <NavBar/>
+            <NavBar />
             <div className={classes.content}>
                 <Paper variant="outlined">
-                    <CategoriesList />
+                    <NewCategoriesList />
                 </Paper>
             </div>
         </div>
