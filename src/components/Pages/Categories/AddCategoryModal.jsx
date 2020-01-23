@@ -8,6 +8,7 @@ import { TextField } from 'formik-material-ui';
 import axios from 'axios';
 import { registerValidationSchema } from '../Login/validation';
 import { Route, withRouter } from "react-router";
+import { API_ENDPOINT } from '../../../api';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function UserModal({ userData, open, onClose, ...rest }) {
+function AddCategoryModal({ userData, open, onClose, ...rest }) {
     const { firstName, lastName, email, password } = userData
 
     const USER_ID = sessionStorage.getItem('userId');
@@ -120,4 +121,4 @@ function UserModal({ userData, open, onClose, ...rest }) {
     )
 }
 
-export default withRouter(UserModal);
+export default withRouter(AddCategoryModal);

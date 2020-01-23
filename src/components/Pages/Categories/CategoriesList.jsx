@@ -104,9 +104,7 @@ export default function CategoriesList() {
                     tooltip: 'Refresh',
                     isFreeAction: true,
                     onClick: () => tableRef.current && tableRef.current.onQueryChange()
-                }
-            ]}
-            actions={[
+                },
                 {
                     icon: AccessTimeIcon,
                     tooltip: 'Edit Category Time',
