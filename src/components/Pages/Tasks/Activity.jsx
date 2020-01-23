@@ -100,14 +100,17 @@ export class Activity extends Component {
         ) : null}
         {isExpanded ? (
           <div className={classes.tasks}>
-            {activity.tasks.map(task => (
-              <Task
-                key={task.id}
-                activity={activity}
-                task={task}
-                showAddTaskModal={() => showAddTaskModal(activity, task)}
-              />
-            ))}
+            {activity.tasks.map(task =>
+              !task.superTask ? (
+                <Task
+                  key={task.id}
+                  activity={activity}
+                  task={task}
+                  refetchActivities={this.props.refetchActivities}
+                  showAddTaskModal={() => showAddTaskModal(activity, task)}
+                />
+              ) : null
+            )}
           </div>
         ) : null}
       </div>

@@ -67,6 +67,7 @@ export class NewTaskList extends Component {
   };
 
   handleShowModal = (modal, activity, task) => {
+    debugger;
     this.setState({ currentModal: modal, currentActivity: activity, currentTask: task });
   };
 
@@ -143,7 +144,7 @@ export class NewTaskList extends Component {
             activity={activity}
             key={activity.id}
             refetchActivities={this.handleActivityFetching}
-            showAddTaskModal={activity => this.handleShowModal(MODAL_ADD_TASK, activity)}
+            showAddTaskModal={(activity, task) => this.handleShowModal(MODAL_ADD_TASK, activity, task)}
             showEditActivityModal={activity => this.handleShowModal(MODAL_EDIT_ACTIVITY, activity)}
           />
         ))}
