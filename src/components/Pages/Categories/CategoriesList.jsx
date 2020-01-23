@@ -21,6 +21,7 @@ import Delete from '@material-ui/icons/Delete';
 import ClearIcon from '@material-ui/icons/Clear';
 import CancelIcon from '@material-ui/icons/Cancel';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import axios from 'axios';
 
 export default function CategoriesList() {
@@ -58,6 +59,7 @@ export default function CategoriesList() {
                 paging: false,
                 showTitle: false,
                 sorting: false,
+                actionsColumnIndex: -1,
                 searchFieldAlignment: 'left',
                 headerStyle: {
                     color: '#00b0ff'
@@ -66,6 +68,8 @@ export default function CategoriesList() {
                     color: '#6d6d6e'
                 }
             }}
+
+
             localization={{
                 body: {
                     editRow: {
@@ -102,6 +106,12 @@ export default function CategoriesList() {
                     onClick: () => tableRef.current && tableRef.current.onQueryChange()
                 }
             ]}
+            actions={[
+                {
+                    icon: AccessTimeIcon,
+                    tooltip: 'Edit Category Time',
+                    onClick: (event, rowData) => alert('You are editing ' + rowData.name)
+                }]}
             editable={{
                 onRowAdd: newData =>
                     new Promise(resolve => {
