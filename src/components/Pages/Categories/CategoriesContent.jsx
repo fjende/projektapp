@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button'
 import { Typography, Dialog, Divider } from '@material-ui/core/';
 import PersonIcon from '@material-ui/icons/Person';
-import UserModal from './UserModal'
+import AddCategoryModal from './AddCategoryModal'
 import axios from 'axios';
 import List from '@material-ui/core/ListItem';
 import ListItem from '@material-ui/core/ListItem';
@@ -15,78 +15,61 @@ import EmailIcon from '@material-ui/icons/Email'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar';
 import { textAlign } from '@material-ui/system';
+import { API_ENDPOINT } from '../../../api';
 
 function ProfileContent(props) {
-    const [userData, setUserData] = useState(null)
+    const [data, setData] = useState(null)
     const [modalOpen, setModalOpen] = useState(false)
-
 
     const USER_ID = sessionStorage.getItem('userId');
 
-    console.log(userData)
-
-    const getUserData = async () => {
+    console.log(data)
+    console.log(`${API_ENDPOINT}/activity-type`);
+    const getData = async () => {
         axios
-            .get(`http://127.0.0.1:3000/user/${USER_ID}/`)
-            .then(({ data }) => setUserData(data))
-            .catch(console.log('error - no user found'))
+            .get(`${API_ENDPOINT}/activity-type`)
+            .then(({ data }) => setData(data)
+                .then(console.log(data))
+                .catch(console.log('Error - No Activity_Types Found'))
     }
 
     const handleModalClose = async () => {
         setModalOpen(false)
-        await getUserData()
+        await getData()
     }
 
     useEffect(() => {
-        getUserData()
+        getData()
     }, [])
 
-    const classes = useUserDataStyles()
+    const classes = useCategoryStyles()
 
     return (
         <>
             <div>
-                {userData && (
-                    <div className={classes.userData}>
+                {data && (
+                    <div className={classes.data}>
                         <List className={classes.listStyle}>
                             <Paper>
-                                <ListItem>
-                                    <ListItemAvatar>
-                                        <Avatar>
-                                            <PersonIcon />
-                                        </Avatar>
-                                    </ListItemAvatar>
-                                    <ListItemText primary={userData.firstName + ' ' + userData.lastName} secondary="FULL NAME" />
-                                </ListItem>
-                            </Paper>
-                        </List>
-                        <Divider />
-                        <List>
-                            <Paper>
-                                <ListItem>
-                                    <ListItemAvatar>
-                                        <Avatar>
-                                            <EmailIcon />
-                                        </Avatar>
-                                    </ListItemAvatar>
-                                    <ListItemText primary={userData.email} secondary="EMAIL ADRESS" />
+                                <ListItem >
+                                    <ListItemText primary={data.name} secondary="CATEGORY NAME" />
                                 </ListItem>
                             </Paper>
                         </List>
                         <Divider />
                         <div style={{ marginBottom: '10px', textAlign: 'center' }}>
                             <Button variant='outlined' color='primary' onClick={() => setModalOpen(true)} className={classes.buttonStyle}>
-                                EDIT PROFILE DATA
+                                ADD NEW CATEGORY
                             </Button>
                         </div>
                     </div>)}
             </div>
-            {userData && <UserModal userData={userData} open={modalOpen} onClose={handleModalClose} />}
+            {/*  {data && <AddCategoryModal data={data} open={modalOpen} onClose={handleModalClose} />}  */}
         </>
     )
 }
 
-const useUserDataStyles = makeStyles((theme) => ({
+const useCategoryStyles = makeStyles((theme) => ({
     listStyle: {
         width: '100%',
         maxWidth: 360,
@@ -99,7 +82,7 @@ const useUserDataStyles = makeStyles((theme) => ({
             width: '90%',
         }
     },
-    userData: {
+    data: {
         maxWidth: '100%',
         paddingLeft: '10px'
     },
