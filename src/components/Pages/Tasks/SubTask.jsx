@@ -6,6 +6,13 @@ import { API_ENDPOINT } from '../../../api';
 import axios from 'axios';
 import EditIcon from '../../../icons/EditIcon';
 import DeleteIcon from '../../../icons/DeleteIcon';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { CardActions } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
+import Checkbox from '@material-ui/core/Checkbox'
 
 const styles = {
   task: {
@@ -20,8 +27,6 @@ const styles = {
     justifyContent: 'space-between'
   },
   textContent: {
-    display: 'flex',
-    alignItems: 'center',
     marginBottom: '15px',
 
     '& > span:not(:last-child)': {
@@ -35,7 +40,11 @@ const styles = {
   text: {
     fontSize: '18px'
   },
-  tasks: {}
+  tasks: {},
+  shape: {
+    width: 30,
+    height: 6,
+  },
 };
 
 export class SubTask extends Component {
@@ -59,60 +68,66 @@ export class SubTask extends Component {
   render() {
     const { activity, classes, showAddScheduleModal, showEditTaskModal, task } = this.props;
     return (
-      <div className={classes.task} style={{ border: `dashed 1px ${activity.activityColor.value}` }}>
-        <div className={classes.header}>
-          <div className={classes.topActions}>
-            <h2 style={{ margin: '0 16px 0 0' }}>{task.name}</h2>
-            <div onClick={() => showEditTaskModal(activity, task)}>
-              <EditIcon size="18" />
+      <div className={classes.task} >
+        <Card variant="outlined" style={{
+          backgroundColor: "#f9f9f9"
+        }}>
+          <CardContent className={classes.cardContent}>
+            <div className={classes.shape} style={{ backgroundColor: `${activity.activityColor.value}` }} />
+            <div className={classes.header}>
+              <h4 style={{ margin: '0 16px 0 0' }}>{task.name}</h4>
+              <div className={classes.icons}>
+                <div>
+                  <BootstrapButton
+                    variant={task.isCompleted ? 'success' : 'danger'}
+                    onClick={() => this.handleCompleteButtonClick(!task.isCompleted)}
+                    style={{ minWidth: '120px ' }}
+                  >
+                    {task.isCompleted ? 'Finished' : 'Unfinished'}
+                  </BootstrapButton>
+                </div>
+                <div>
+                  <Button variant="outlined" color="primary" onClick={() => showAddScheduleModal(activity, task)}>
+                    Schedule
+                 </Button>
+                </div>
+                <div onClick={() => showEditTaskModal(activity, task)}>
+                  <EditIcon size="20" />
+                </div>
+                <div onClick={() => this.handleDelete(task)}>
+                  <DeleteIcon size="20" />
+                </div>
+              </div>
             </div>
-            <div onClick={() => this.handleDelete(task)}>
-              <DeleteIcon size="20" />
+            <div className={classes.textContent}>
+              <span className={classes.label}>Duration</span>
+              <span className={classes.text}>{`${task.durationHours} hours`}</span>
+
+              {task.schedules.length
+                ? task.schedules
+                  .sort((a, b) => new Date(a.date) - new Date(b.date))
+                  .map((schedule, index) => {
+                    return (
+                      <div className={classes.textContent} key={index}>
+                        <span className={classes.label}>Schedule #{index + 1}</span>
+                        <span className={classes.text}>
+                          {new Date(schedule.date).toLocaleDateString() +
+                            '  ' +
+                            new Date(schedule.timeFrom).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) +
+                            ' - ' +
+                            new Date(schedule.timeTo).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </span>
+                        <span style={{ cursor: 'pointer' }} onClick={() => this.handleDeleteSchedule(schedule.id)}>
+                          <DeleteIcon size="20" />
+                        </span>
+                      </div>
+                    );
+                  })
+                : null}
             </div>
-          </div>
-          <span style={{ color: task.isCompleted ? 'green' : 'red' }}>
-            {task.isCompleted ? 'Finished' : 'Not finished yet'}
-          </span>
-        </div>
-        <div className={classes.textContent}>
-          <span className={classes.label}>Duration</span>
-          <span className={classes.text}>{`${task.durationHours} hours`}</span>
-        </div>
-        {task.schedules.length
-          ? task.schedules
-              .sort((a, b) => new Date(a.date) - new Date(b.date))
-              .map((schedule, index) => {
-                return (
-                  <div className={classes.textContent} key={index}>
-                    <span className={classes.label}>Schedule #{index + 1}</span>
-                    <span className={classes.text}>
-                      {new Date(schedule.date).toLocaleDateString() +
-                        '  ' +
-                        new Date(schedule.timeFrom).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) +
-                        ' - ' +
-                        new Date(schedule.timeTo).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </span>
-                    <span style={{ cursor: 'pointer' }} onClick={() => this.handleDeleteSchedule(schedule.id)}>
-                      <DeleteIcon size="20" />
-                    </span>
-                  </div>
-                );
-              })
-          : null}
-        <div style={{ marginBottom: '10px' }}>
-          <BootstrapButton
-            variant={task.isCompleted ? 'success' : 'danger'}
-            onClick={() => this.handleCompleteButtonClick(!task.isCompleted)}
-          >
-            {task.isCompleted ? 'Done' : 'To do'}
-          </BootstrapButton>
-        </div>
-        <div>
-          <Button variant="outlined" color="primary" onClick={() => showAddScheduleModal(activity, task)}>
-            Add to schedule
-          </Button>
-        </div>
-      </div>
+          </CardContent>
+        </Card>
+      </div >
     );
   }
 }
