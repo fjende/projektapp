@@ -9,7 +9,6 @@ import axios from 'axios';
 
 const styles = {
   task: {
-    width: '50%',
     marginBottom: '20px',
     padding: '20px',
     backgroundColor: '#fff'
@@ -101,12 +100,12 @@ export class Task extends Component {
   }
 
   render() {
-    const { activity, classes, showAddTaskModal, task } = this.props;
+    const { activity, classes, task } = this.props;
     const { isExpanded } = this.state;
     const successPercent = this.getSuccessPercent(task);
 
     return (
-      <div className={classes.task} style={{ border: `solid 1px ${activity.activityColor.value}` }}>
+      <div className={classes.task} style={{ border: `solid 2px ${activity.activityColor.value}` }}>
         <div className={classes.header}>
           <h2>{task.name}</h2>
           <div style={{ width: '100px' }}>

@@ -63,7 +63,7 @@ export class Activity extends Component {
     const { isExpanded } = this.state;
 
     return (
-      <div className={classes.activity} style={{ border: `solid 1px ${activity.activityColor.value}` }}>
+      <div className={classes.activity} style={{ border: `solid 3px ${activity.activityColor.value}` }}>
         <div className={classes.header}>
           <h1>{activity.name}</h1>
           <div className={classes.icons}>

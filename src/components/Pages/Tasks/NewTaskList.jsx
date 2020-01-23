@@ -11,6 +11,9 @@ import ProjektModal from '../../Modals/Modal';
 const styles = {
   activitiesPage: {
     display: 'flex',
+    justifyContent: 'center',
+    maxWidth: '1120px',
+    margin: 'auto',
     padding: '20px',
     backgroundColor: '#fafafa'
   },
@@ -138,15 +141,17 @@ export class NewTaskList extends Component {
             Add activity
           </Button>
         </div>
-        {activities.map(activity => (
-          <Activity
-            activity={activity}
-            key={activity.id}
-            refetchActivities={this.handleActivityFetching}
-            showAddTaskModal={(activity, task) => this.handleShowModal(MODAL_ADD_TASK, activity, task)}
-            showEditActivityModal={activity => this.handleShowModal(MODAL_EDIT_ACTIVITY, activity)}
-          />
-        ))}
+        {activities
+          .sort((a, b) => a.name - b.name)
+          .map(activity => (
+            <Activity
+              activity={activity}
+              key={activity.id}
+              refetchActivities={this.handleActivityFetching}
+              showAddTaskModal={(activity, task) => this.handleShowModal(MODAL_ADD_TASK, activity, task)}
+              showEditActivityModal={activity => this.handleShowModal(MODAL_EDIT_ACTIVITY, activity)}
+            />
+          ))}
       </div>
     );
   }

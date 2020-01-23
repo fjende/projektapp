@@ -7,10 +7,10 @@ import axios from 'axios';
 
 const styles = {
   task: {
-    width: '50%',
     marginBottom: '20px',
     padding: '10px',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    transition: 'ease-all 0.5s'
   },
   header: {
     display: 'flex',
@@ -46,7 +46,7 @@ export class SubTask extends Component {
     const { activity, classes, task } = this.props;
 
     return (
-      <div className={classes.task} style={{ border: `solid 1px ${activity.activityColor.value}` }}>
+      <div className={classes.task} style={{ border: `dashed 1px ${activity.activityColor.value}` }}>
         <div className={classes.header}>
           <h4>{task.name}</h4>
           <span style={{ color: task.isCompleted ? 'green' : 'red' }}>
