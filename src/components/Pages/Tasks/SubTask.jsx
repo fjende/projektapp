@@ -6,6 +6,13 @@ import { API_ENDPOINT } from '../../../api';
 import axios from 'axios';
 import EditIcon from '../../../icons/EditIcon';
 import DeleteIcon from '../../../icons/DeleteIcon';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { CardActions } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
+import Checkbox from '@material-ui/core/Checkbox'
 
 const styles = {
   task: {
@@ -53,38 +60,44 @@ export class SubTask extends Component {
     const { activity, classes, showEditTaskModal, task } = this.props;
 
     return (
-      <div className={classes.task} style={{ border: `dashed 1px ${activity.activityColor.value}` }}>
-        <div className={classes.header}>
-          <div className={classes.topActions}>
-            <h2 style={{ margin: '0 16px 0 0' }}>{task.name}</h2>
-            <div onClick={() => showEditTaskModal(activity, task)}>
-              <EditIcon size="18" />
-            </div>
-            <div onClick={() => this.handleDelete(task)}>
-              <DeleteIcon size="20" />
-            </div>
-          </div>
-          <span style={{ color: task.isCompleted ? 'green' : 'red' }}>
-            {task.isCompleted ? 'Finished' : 'Not finished yet'}
-          </span>
-        </div>
-        <div className={classes.textContent}>
-          <span className={classes.label}>Duration</span>
-          <span className={classes.text}>{`${task.durationHours} hours`}</span>
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <BootstrapButton
-            variant={task.isCompleted ? 'success' : 'danger'}
-            onClick={() => this.handleCompleteButtonClick(!task.isCompleted)}
-          >
-            {task.isCompleted ? 'Done' : 'To do'}
-          </BootstrapButton>
-        </div>
-        <div>
-          <Button variant="outlined" color="primary" onClick={() => {}}>
-            Add to schedule
+      <div className={classes.task}>
+        <Card variant="outlined" style={{
+          backgroundColor: "#f9f9f9"
+        }}>
+          <CardContent className={classes.cardContent}>
+            <div className={classes.header}>
+              <h4 style={{ margin: '0 16px 0 0' }}>{task.name}</h4>
+              <div className={classes.icons}>
+                <div>
+                  <BootstrapButton
+                    variant={task.isCompleted ? 'success' : 'danger'}
+                    onClick={() => this.handleCompleteButtonClick(!task.isCompleted)}
+                  >
+                    {task.isCompleted ? 'Finished' : 'Unfinished'}
+                  </BootstrapButton>
+                </div>
+                <div>
+                  <Button variant="outlined" color="primary" onClick={() => { }}>
+                    Schedule
           </Button>
-        </div>
+                </div>
+                <div onClick={() => showEditTaskModal(activity, task)}>
+                  <EditIcon size="20" />
+                </div>
+                <div onClick={() => this.handleDelete(task)}>
+                  <DeleteIcon size="20" />
+                </div>
+              </div>
+
+            </div>
+            <div className={classes.textContent}>
+              <span className={classes.label}>Duration:</span>
+              <span className={classes.text}>{`${task.durationHours} hours`}</span>
+            </div>
+          </CardContent>
+          <div>
+          </div>
+        </Card>
       </div>
     );
   }
