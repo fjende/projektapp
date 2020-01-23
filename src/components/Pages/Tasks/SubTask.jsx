@@ -20,6 +20,8 @@ const styles = {
     justifyContent: 'space-between'
   },
   textContent: {
+    display: 'flex',
+    alignItems: 'center',
     marginBottom: '15px',
 
     '& > span:not(:last-child)': {
@@ -49,9 +51,13 @@ export class SubTask extends Component {
     setTimeout(() => this.props.refetchActivities(), 100);
   };
 
-  render() {
-    const { activity, classes, showEditTaskModal, task } = this.props;
+  handleDeleteSchedule = id => {
+    axios.delete(`${API_ENDPOINT}/task/schedule/${id}`);
+    setTimeout(() => this.props.refetchActivities(), 100);
+  };
 
+  render() {
+    const { activity, classes, showAddScheduleModal, showEditTaskModal, task } = this.props;
     return (
       <div className={classes.task} style={{ border: `dashed 1px ${activity.activityColor.value}` }}>
         <div className={classes.header}>
@@ -72,6 +78,27 @@ export class SubTask extends Component {
           <span className={classes.label}>Duration</span>
           <span className={classes.text}>{`${task.durationHours} hours`}</span>
         </div>
+        {task.schedules.length
+          ? task.schedules
+              .sort((a, b) => new Date(a.date) - new Date(b.date))
+              .map((schedule, index) => {
+                return (
+                  <div className={classes.textContent} key={index}>
+                    <span className={classes.label}>Schedule #{index + 1}</span>
+                    <span className={classes.text}>
+                      {new Date(schedule.date).toLocaleDateString() +
+                        '  ' +
+                        new Date(schedule.timeFrom).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) +
+                        ' - ' +
+                        new Date(schedule.timeTo).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </span>
+                    <span style={{ cursor: 'pointer' }} onClick={() => this.handleDeleteSchedule(schedule.id)}>
+                      <DeleteIcon size="20" />
+                    </span>
+                  </div>
+                );
+              })
+          : null}
         <div style={{ marginBottom: '10px' }}>
           <BootstrapButton
             variant={task.isCompleted ? 'success' : 'danger'}
@@ -81,7 +108,7 @@ export class SubTask extends Component {
           </BootstrapButton>
         </div>
         <div>
-          <Button variant="outlined" color="primary" onClick={() => {}}>
+          <Button variant="outlined" color="primary" onClick={() => showAddScheduleModal(activity, task)}>
             Add to schedule
           </Button>
         </div>

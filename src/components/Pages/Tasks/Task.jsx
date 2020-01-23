@@ -30,6 +30,8 @@ const styles = {
     }
   },
   textContent: {
+    display: 'flex',
+    alignItems: 'center',
     marginBottom: '15px',
 
     '& > span:not(:last-child)': {
@@ -66,8 +68,13 @@ export class Task extends Component {
     setTimeout(() => this.props.refetchActivities(), 100);
   };
 
-  handleDelete = task => {
+  handleDelete = () => {
     axios.delete(`${API_ENDPOINT}/task/${this.props.task.id}`);
+    setTimeout(() => this.props.refetchActivities(), 100);
+  };
+
+  handleDeleteSchedule = id => {
+    axios.delete(`${API_ENDPOINT}/task/schedule/${id}`);
     setTimeout(() => this.props.refetchActivities(), 100);
   };
 
@@ -84,7 +91,7 @@ export class Task extends Component {
   }
 
   renderButtons() {
-    const { activity, classes, showAddTaskModal, task } = this.props;
+    const { activity, classes, showAddTaskModal, showAddScheduleModal, task } = this.props;
     const { isExpanded } = this.state;
 
     return (
@@ -95,10 +102,12 @@ export class Task extends Component {
           </Button>
         ) : (
           <div className={classes.buttons}>
-            <Button variant="outlined" color="primary" onClick={() => showAddTaskModal(activity, task)}>
-              Add subtask
-            </Button>
-            <Button variant="outlined" color="primary" onClick={() => {}}>
+            {task.schedules.length ? null : (
+              <Button variant="outlined" color="primary" onClick={() => showAddTaskModal(activity, task)}>
+                Add subtask
+              </Button>
+            )}
+            <Button variant="outlined" color="primary" onClick={() => showAddScheduleModal(activity, task)}>
               Add to schedule
             </Button>
           </div>
@@ -116,7 +125,7 @@ export class Task extends Component {
   }
 
   render() {
-    const { activity, classes, showEditTaskModal, task } = this.props;
+    const { activity, classes, showAddScheduleModal, showEditTaskModal, task } = this.props;
     const { isExpanded } = this.state;
     const successPercent = this.getSuccessPercent(task);
 
@@ -128,7 +137,7 @@ export class Task extends Component {
             <div onClick={() => showEditTaskModal(activity, task)}>
               <EditIcon size="20" />
             </div>
-            <div onClick={() => this.handleDelete(task)}>
+            <div onClick={this.handleDelete}>
               <DeleteIcon size="20" />
             </div>
           </div>
@@ -140,6 +149,27 @@ export class Task extends Component {
           <span className={classes.label}>Duration:</span>
           <span className={classes.text}>{`${task.durationHours} hours`}</span>
         </div>
+        {task.schedules.length
+          ? task.schedules
+              .sort((a, b) => new Date(a.date) - new Date(b.date))
+              .map((schedule, index) => {
+                return (
+                  <div className={classes.textContent} key={index}>
+                    <span className={classes.label}>Schedule #{index + 1}</span>
+                    <span className={classes.text}>
+                      {new Date(schedule.date).toLocaleDateString() +
+                        '  ' +
+                        new Date(schedule.timeFrom).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) +
+                        ' - ' +
+                        new Date(schedule.timeTo).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </span>
+                    <span style={{ cursor: 'pointer' }} onClick={() => this.handleDeleteSchedule(schedule.id)}>
+                      <DeleteIcon size="20" />
+                    </span>
+                  </div>
+                );
+              })
+          : null}
         <div style={{ marginBottom: '10px' }}>
           <BootstrapButton
             variant={task.isCompleted ? 'success' : 'danger'}
@@ -159,6 +189,7 @@ export class Task extends Component {
                       key={subtask.id}
                       activity={activity}
                       task={subtask}
+                      showAddScheduleModal={showAddScheduleModal}
                       showEditTaskModal={showEditTaskModal}
                       refetchActivities={this.props.refetchActivities}
                       classes={classes}

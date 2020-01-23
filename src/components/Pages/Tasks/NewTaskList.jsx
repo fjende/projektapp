@@ -5,7 +5,13 @@ import { API_ENDPOINT } from '../../../api';
 import LoadingSpinner from '../../../icons/LoadingSpinner';
 import Activity from './Activity';
 import { Button } from '@material-ui/core';
-import { MODAL_ADD_ACTIVITY, MODAL_EDIT_ACTIVITY, MODAL_ADD_TASK, MODAL_EDIT_TASK } from '../../../modal';
+import {
+  MODAL_ADD_ACTIVITY,
+  MODAL_EDIT_ACTIVITY,
+  MODAL_ADD_TASK,
+  MODAL_EDIT_TASK,
+  MODAL_ADD_SCHEDULE
+} from '../../../modal';
 import ProjektModal from '../../Modals/Modal';
 
 const styles = {
@@ -69,9 +75,8 @@ export class NewTaskList extends Component {
       .finally(() => this.setState({ isLoading: false }));
   };
 
-  handleShowModal = (modal, activity, task) => {
-    debugger;
-    this.setState({ currentModal: modal, currentActivity: activity, currentTask: task });
+  handleShowModal = (modal, activity, task, schedule) => {
+    this.setState({ currentModal: modal, currentActivity: activity, currentTask: task, currentSchedule: schedule });
   };
 
   handleCloseModal = () => {
@@ -134,6 +139,19 @@ export class NewTaskList extends Component {
     );
   }
 
+  renderAddScheduleModal() {
+    const { currentActivity, currentTask } = this.state;
+
+    return (
+      <ProjektModal
+        modalType={MODAL_ADD_SCHEDULE}
+        currentActivity={currentActivity}
+        currentTask={currentTask}
+        hideModal={this.handleCloseModal}
+      />
+    );
+  }
+
   renderLoadingSpinner() {
     const { classes } = this.props;
 
@@ -165,6 +183,10 @@ export class NewTaskList extends Component {
               showAddTaskModal={(activity, task) => this.handleShowModal(MODAL_ADD_TASK, activity, task)}
               showEditTaskModal={(activity, task) => this.handleShowModal(MODAL_EDIT_TASK, activity, task)}
               showEditActivityModal={activity => this.handleShowModal(MODAL_EDIT_ACTIVITY, activity)}
+              showAddScheduleModal={(activity, task) => this.handleShowModal(MODAL_ADD_SCHEDULE, activity, task)}
+              showEditScheduleModal={(activity, task, schedule) =>
+                this.handleShowModal(MODAL_ADD_SCHEDULE, activity, task, schedule)
+              }
             />
           ))}
       </div>
@@ -182,6 +204,7 @@ export class NewTaskList extends Component {
         {currentModal === MODAL_EDIT_ACTIVITY && this.renderEditActivityModal()}
         {currentModal === MODAL_ADD_TASK && this.renderAddTaskModal()}
         {currentModal === MODAL_EDIT_TASK && this.renderEditTaskModal()}
+        {currentModal === MODAL_ADD_SCHEDULE && this.renderAddScheduleModal()}
       </div>
     );
   }
