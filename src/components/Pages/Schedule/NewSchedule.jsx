@@ -10,14 +10,16 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MODAL_EDIT_SCHEDULE } from '../../../modal';
 import ProjektModal from '../../Modals/Modal';
 
+
+
 const styles = {
+
   schedulePage: {
     display: 'flex',
     justifyContent: 'center',
-    maxWidth: '1120px',
     margin: 'auto',
     padding: '20px',
-    backgroundColor: '#fafafa'
+    backgroundColor: '#fff'
   },
   loadingWrapper: {
     display: 'flex',
@@ -28,8 +30,9 @@ const styles = {
   },
   content: {
     flexDirection: 'column',
+    alignItems: 'center',
+    maxWidth: '1120px',
     width: '100%',
-
     '& > div': {
       marginBottom: '20px'
     }
@@ -109,15 +112,16 @@ export class NewSchedule extends Component {
 
     return (
       <div className={classes.content}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <KeyboardDatePicker
-            inputVariant="outlined"
-            format="yyyy/MM/dd"
-            value={selectedDate}
-            onChange={date => this.setState({ selectedDate: date }, () => this.handleScheduleFetching())}
-          />
-        </MuiPickersUtilsProvider>
-        <h1 style={{ margin: '20px 0' }}>Tasks</h1>
+        <div style={{ textAlign: 'center', marginBottom: '15px', marginTop: '5px' }}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils} color="secondary">
+            <KeyboardDatePicker
+              inputVariant="outlined"
+              format="yyyy/MM/dd"
+              value={selectedDate}
+              onChange={date => this.setState({ selectedDate: date }, () => this.handleScheduleFetching())}
+            />
+          </MuiPickersUtilsProvider>
+        </div>
         {schedules.length ? (
           schedules
             .sort((a, b) => new Date(a.timeFrom) - new Date(b.timeFrom))
@@ -129,8 +133,8 @@ export class NewSchedule extends Component {
               />
             ))
         ) : (
-          <h4 className={classes.italicText}>Woohoo! No tasks for that day</h4>
-        )}
+            <h4 className={classes.italicText}>Woohoo! No tasks for that day</h4>
+          )}
         {currentModal === MODAL_EDIT_SCHEDULE && this.renderEditScheduleModal()}
       </div>
     );
