@@ -59,7 +59,7 @@ export class Activity extends Component {
   };
 
   render() {
-    const { activity, classes, showAddTaskModal } = this.props;
+    const { activity, classes, showAddTaskModal, showEditTaskModal } = this.props;
     const { isExpanded } = this.state;
 
     return (
@@ -100,17 +100,20 @@ export class Activity extends Component {
         ) : null}
         {isExpanded ? (
           <div className={classes.tasks}>
-            {activity.tasks.map(task =>
-              !task.superTask ? (
-                <Task
-                  key={task.id}
-                  activity={activity}
-                  task={task}
-                  refetchActivities={this.props.refetchActivities}
-                  showAddTaskModal={() => showAddTaskModal(activity, task)}
-                />
-              ) : null
-            )}
+            {activity.tasks
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map(task =>
+                !task.superTask ? (
+                  <Task
+                    key={task.id}
+                    activity={activity}
+                    task={task}
+                    refetchActivities={this.props.refetchActivities}
+                    showAddTaskModal={() => showAddTaskModal(activity, task)}
+                    showEditTaskModal={showEditTaskModal}
+                  />
+                ) : null
+              )}
           </div>
         ) : null}
       </div>

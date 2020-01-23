@@ -4,6 +4,8 @@ import injectSheet from 'react-jss';
 import { default as BootstrapButton } from 'react-bootstrap/Button';
 import { API_ENDPOINT } from '../../../api';
 import axios from 'axios';
+import EditIcon from '../../../icons/EditIcon';
+import DeleteIcon from '../../../icons/DeleteIcon';
 
 const styles = {
   task: {
@@ -42,13 +44,26 @@ export class SubTask extends Component {
     setTimeout(() => this.props.refetchActivities(), 100);
   };
 
+  handleDelete = task => {
+    axios.delete(`${API_ENDPOINT}/task/${this.props.task.id}`);
+    setTimeout(() => this.props.refetchActivities(), 100);
+  };
+
   render() {
-    const { activity, classes, task } = this.props;
+    const { activity, classes, showEditTaskModal, task } = this.props;
 
     return (
       <div className={classes.task} style={{ border: `dashed 1px ${activity.activityColor.value}` }}>
         <div className={classes.header}>
-          <h4>{task.name}</h4>
+          <div className={classes.topActions}>
+            <h2 style={{ margin: '0 16px 0 0' }}>{task.name}</h2>
+            <div onClick={() => showEditTaskModal(activity, task)}>
+              <EditIcon size="18" />
+            </div>
+            <div onClick={() => this.handleDelete(task)}>
+              <DeleteIcon size="20" />
+            </div>
+          </div>
           <span style={{ color: task.isCompleted ? 'green' : 'red' }}>
             {task.isCompleted ? 'Finished' : 'Not finished yet'}
           </span>

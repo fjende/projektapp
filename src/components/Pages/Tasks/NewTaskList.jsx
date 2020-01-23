@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import axios from 'axios';
 import { API_ENDPOINT } from '../../../api';
 import LoadingSpinner from '../../../icons/LoadingSpinner';
 import Activity from './Activity';
 import { Button } from '@material-ui/core';
-import { MODAL_ADD_ACTIVITY, MODAL_EDIT_ACTIVITY, MODAL_ADD_TASK } from '../../../modal';
+import { MODAL_ADD_ACTIVITY, MODAL_EDIT_ACTIVITY, MODAL_ADD_TASK, MODAL_EDIT_TASK } from '../../../modal';
 import ProjektModal from '../../Modals/Modal';
 
 const styles = {
@@ -70,6 +70,7 @@ export class NewTaskList extends Component {
   };
 
   handleShowModal = (modal, activity, task) => {
+    debugger;
     this.setState({ currentModal: modal, currentActivity: activity, currentTask: task });
   };
 
@@ -120,6 +121,19 @@ export class NewTaskList extends Component {
     );
   }
 
+  renderEditTaskModal() {
+    const { currentActivity, currentTask } = this.state;
+
+    return (
+      <ProjektModal
+        modalType={MODAL_EDIT_TASK}
+        currentActivity={currentActivity}
+        currentTask={currentTask}
+        hideModal={this.handleCloseModal}
+      />
+    );
+  }
+
   renderLoadingSpinner() {
     const { classes } = this.props;
 
@@ -149,6 +163,7 @@ export class NewTaskList extends Component {
               key={activity.id}
               refetchActivities={this.handleActivityFetching}
               showAddTaskModal={(activity, task) => this.handleShowModal(MODAL_ADD_TASK, activity, task)}
+              showEditTaskModal={(activity, task) => this.handleShowModal(MODAL_EDIT_TASK, activity, task)}
               showEditActivityModal={activity => this.handleShowModal(MODAL_EDIT_ACTIVITY, activity)}
             />
           ))}
@@ -166,6 +181,7 @@ export class NewTaskList extends Component {
         {currentModal === MODAL_ADD_ACTIVITY && this.renderAddActivityModal()}
         {currentModal === MODAL_EDIT_ACTIVITY && this.renderEditActivityModal()}
         {currentModal === MODAL_ADD_TASK && this.renderAddTaskModal()}
+        {currentModal === MODAL_EDIT_TASK && this.renderEditTaskModal()}
       </div>
     );
   }

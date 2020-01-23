@@ -4,8 +4,9 @@ import injectSheet from 'react-jss';
 import { KEY_CODES } from '../../keyCodes';
 import { AddActivityModal } from './AddActivityModal';
 import { EditActivityModal } from './EditActivityModal';
-import { MODAL_ADD_ACTIVITY, MODAL_EDIT_ACTIVITY, MODAL_ADD_TASK } from '../../modal';
+import { MODAL_ADD_ACTIVITY, MODAL_EDIT_ACTIVITY, MODAL_ADD_TASK, MODAL_EDIT_TASK } from '../../modal';
 import { AddTaskModal } from './AddTaskModal';
+import { EditTaskModal } from './EditTaskModal';
 
 const styles = {
   modalOverlay: {
@@ -96,6 +97,8 @@ export class ProjektModal extends Component {
         return <EditActivityModal {...this.props} />;
       case MODAL_ADD_TASK:
         return <AddTaskModal {...this.props} />;
+      case MODAL_EDIT_TASK:
+        return <EditTaskModal {...this.props} />;
       default:
         return null;
     }

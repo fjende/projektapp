@@ -15,25 +15,23 @@ const styles = {
   }
 };
 
-export class AddTaskModal extends Component {
+export class EditTaskModal extends Component {
   render() {
-    const { classes, currentActivity, currentTask, hideModal } = this.props;
+    const { classes, currentTask, hideModal } = this.props;
 
     return (
       <div className={classes.modal}>
         <Formik
           onSubmit={(values, formikBag) => {
             axios
-              .post(`${API_ENDPOINT}/task`, {
+              .put(`${API_ENDPOINT}/task/${currentTask.id}`, {
                 name: values.name,
-                durationHours: values.duration,
-                activityId: currentActivity.id,
-                superTaskId: currentTask && currentTask.id
+                durationHours: values.duration
               })
               .then(() => hideModal())
-              .catch(error => alert('Task name already exists!'));
+              .catch(error => alert('Could not update task!'));
           }}
-          initialValues={{ name: '', duration: '' }}
+          initialValues={{ name: currentTask.name, duration: currentTask.durationHours }}
           render={formikProps => {
             return (
               <Form className={classes.form}>
@@ -59,7 +57,7 @@ export class AddTaskModal extends Component {
                     name="duration"
                   />
                   <Button type="submit" fullWidth variant="contained" color="primary">
-                    Create
+                    Edit
                   </Button>
                 </div>
               </Form>
@@ -71,4 +69,4 @@ export class AddTaskModal extends Component {
   }
 }
 
-export default injectSheet(styles)(AddTaskModal);
+export default injectSheet(styles)(EditTaskModal);

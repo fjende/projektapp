@@ -6,6 +6,8 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import { default as BootstrapButton } from 'react-bootstrap/Button';
 import { API_ENDPOINT } from '../../../api';
 import axios from 'axios';
+import EditIcon from '../../../icons/EditIcon';
+import DeleteIcon from '../../../icons/DeleteIcon';
 
 const styles = {
   task: {
@@ -17,6 +19,15 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+  topActions: {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+
+    '& > div': {
+      marginLeft: '16px'
+    }
   },
   textContent: {
     marginBottom: '15px',
@@ -52,6 +63,11 @@ export class Task extends Component {
     axios.post(`${API_ENDPOINT}/task/${this.props.task.id}/complete`, {
       isCompleted: value
     });
+    setTimeout(() => this.props.refetchActivities(), 100);
+  };
+
+  handleDelete = task => {
+    axios.delete(`${API_ENDPOINT}/task/${this.props.task.id}`);
     setTimeout(() => this.props.refetchActivities(), 100);
   };
 
@@ -100,20 +116,28 @@ export class Task extends Component {
   }
 
   render() {
-    const { activity, classes, task } = this.props;
+    const { activity, classes, showEditTaskModal, task } = this.props;
     const { isExpanded } = this.state;
     const successPercent = this.getSuccessPercent(task);
 
     return (
       <div className={classes.task} style={{ border: `solid 2px ${activity.activityColor.value}` }}>
         <div className={classes.header}>
-          <h2>{task.name}</h2>
+          <div className={classes.topActions}>
+            <h2 style={{ margin: '0 16px 0 0' }}>{task.name}</h2>
+            <div onClick={() => showEditTaskModal(activity, task)}>
+              <EditIcon size="20" />
+            </div>
+            <div onClick={() => this.handleDelete(task)}>
+              <DeleteIcon size="20" />
+            </div>
+          </div>
           <div style={{ width: '100px' }}>
             <ProgressBar animated variant="success" now={successPercent} />
           </div>
         </div>
         <div className={classes.textContent}>
-          <span className={classes.label}>Duration</span>
+          <span className={classes.label}>Duration:</span>
           <span className={classes.text}>{`${task.durationHours} hours`}</span>
         </div>
         <div style={{ marginBottom: '10px' }}>
@@ -135,6 +159,7 @@ export class Task extends Component {
                       key={subtask.id}
                       activity={activity}
                       task={subtask}
+                      showEditTaskModal={showEditTaskModal}
                       refetchActivities={this.props.refetchActivities}
                       classes={classes}
                     />
