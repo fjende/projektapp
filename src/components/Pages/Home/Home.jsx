@@ -18,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Profile from '../Profile/Profile';
 import Schedule from '../Schedule/Schedule';
+import NewSchedule from '../Schedule/NewSchedule';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AssignmentIcon from '@material-ui/icons/Assignment';
@@ -30,18 +31,19 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Grid from '@material-ui/core/Grid';
 import requireAuth from '../../HOCs/requireAuth';
-import NavBar from '../Nav/NavBar'
+import NavBar from '../Nav/NavBar';
 
 const drawerWidth = 290;
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
-    flexGrow: 1,
+    flexGrow: 1
   },
   content: {
     flexGrow: 1,
     marginTop: theme.spacing(8),
+    borderTop: 'solid 1px rgba(0,0,0,0.12)',
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: 0
@@ -59,7 +61,7 @@ function Home(props) {
       <CssBaseline />
       <NavBar />
       <div className={classes.content}>
-        <Schedule />
+        <NewSchedule />
       </div>
     </div>
   );

@@ -59,7 +59,14 @@ export class Activity extends Component {
   };
 
   render() {
-    const { activity, classes, showAddTaskModal, showEditTaskModal } = this.props;
+    const {
+      activity,
+      classes,
+      showAddTaskModal,
+      showAddScheduleModal,
+      showEditScheduleModal,
+      showEditTaskModal
+    } = this.props;
     const { isExpanded } = this.state;
 
     return (
@@ -110,6 +117,7 @@ export class Activity extends Component {
                     task={task}
                     refetchActivities={this.props.refetchActivities}
                     showAddTaskModal={() => showAddTaskModal(activity, task)}
+                    showAddScheduleModal={showAddScheduleModal}
                     showEditTaskModal={showEditTaskModal}
                   />
                 ) : null
