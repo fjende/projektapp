@@ -13,6 +13,7 @@ import {
   MODAL_ADD_SCHEDULE
 } from '../../../modal';
 import ProjektModal from '../../Modals/Modal';
+import { Divider } from '@material-ui/core/';
 
 const styles = {
   activitiesPage: {
@@ -37,6 +38,9 @@ const styles = {
     justifyContent: 'center',
     height: '90vh',
     width: '100%'
+  },
+  buttonStyle: {
+    width: '300px',
   }
 };
 
@@ -168,10 +172,10 @@ export class NewTaskList extends Component {
 
     return (
       <div className={classes.content}>
-        <div>
-          <Button variant="contained" color="primary" onClick={() => this.handleShowModal(MODAL_ADD_ACTIVITY)}>
-            Add activity
-          </Button>
+        <div style={{ textAlign: 'center', marginBottom: '15px', marginTop: '5px' }}>
+          <Button variant="outlined" className={classes.buttonStyle} color="primary" onClick={() => this.handleShowModal(MODAL_ADD_ACTIVITY)}>
+            Add NEW ACTIVITY
+        </Button>
         </div>
         {activities
           .sort((a, b) => a.name - b.name)
