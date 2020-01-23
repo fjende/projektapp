@@ -30,7 +30,6 @@ export class AddTaskModal extends Component {
       <div className={classes.modal}>
         <Formik
           onSubmit={(values, formikBag) => {
-            debugger;
             axios
               .post(`${API_ENDPOINT}/task`, {
                 name: values.name,

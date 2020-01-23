@@ -147,7 +147,7 @@ function NavBar(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.datePicker}>
-            sasaffassa
+            Scheduler
           </Typography>
         </Toolbar>
       </AppBar>

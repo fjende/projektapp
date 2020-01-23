@@ -18,7 +18,6 @@ const styles = {
     bottom: 0,
     left: 0,
     right: 0,
-    background: 'rgba(0, 0, 0, 0.6)',
     zIndex: '10'
   },
   modalWrapper: {
@@ -27,7 +26,7 @@ const styles = {
     padding: '30px',
     borderRadius: '6px',
     backgroundColor: '#fff',
-    boxShadow: '0 4px 12px 0 rgba(1, 55, 79, 0.05)'
+    boxShadow: '0 4px 12px 0 rgba(1, 55, 79, 0.5)'
   },
   modalActions: {
     display: 'flex',

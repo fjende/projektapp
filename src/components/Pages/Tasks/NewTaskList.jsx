@@ -67,7 +67,6 @@ export class NewTaskList extends Component {
   };
 
   handleShowModal = (modal, activity, task) => {
-    debugger;
     this.setState({ currentModal: modal, currentActivity: activity, currentTask: task });
   };
 
