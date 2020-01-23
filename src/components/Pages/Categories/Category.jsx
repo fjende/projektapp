@@ -72,7 +72,7 @@ export class Category extends Component {
     }
 
     handleDelete = (id, userId, typeId, timeFrom) => {
-        axios.delete(`${API_ENDPOINT}/activity-type-daily-schedule?id=${id}&userId=${userId}&typeId=${typeId}&gtimeFrom=${timeFrom}`).then(() => this.props.refetchActivities())
+        axios.delete(`${API_ENDPOINT}/activity-type-daily-schedule?id=${id}&userId=${userId}&typeId=${typeId}&timeFrom=${timeFrom}`).then(() => this.props.refetchActivities())
             .then(res => console.log(res));
     };
 
