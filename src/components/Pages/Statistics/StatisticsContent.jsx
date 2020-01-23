@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -13,6 +13,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,67 +31,105 @@ const useStyles = makeStyles(theme => ({
         width: '100%'
     },
 }));
-function createData(name, timespent, ntasks, nfuturetasks, tfuture) {
-    return { name, timespent, ntasks, nfuturetasks, tfuture };
-}
-const rows = [
-    createData('Total time spent:', 159),
-    createData('Number of tasks:', 237),
-    createData('Number of future tasks:', 262),
-    createData('Time needed in the future:', 305),
-];
+
+
+
 export default function StatisticsContent() {
     const classes = useStyles();
-    const [category, setCategory] = React.useState('');
+    const [currentActivity, setCurrentActivity] = React.useState('');
+    const [userData, setUserData] = useState(null)
+    const [statisticsData, setStatisticsData] = React.useState('');
 
-    const inputLabel = React.useRef(null);
-    const [labelWidth, setLabelWidth] = React.useState(0);
+    const USER_ID = sessionStorage.getItem('userId');
 
-    const handleChange = event => {
-        setCategory(event.target.value);
-    };
+    console.log(userData);
+    console.log(currentActivity);
+    console.log(statisticsData);
+
+    const getUserData = async () => {
+        axios
+            .get(`http://127.0.0.1:3000/user/${USER_ID}/activities`)
+            .then(({ data }) => setUserData(data.activities))
+            .catch(console.log('Error Getting User Data'))
+    }
+
+    const getStatisticsData = async () => {
+        axios
+            .get(`http://127.0.0.1:3000/activity/${currentActivity}/statistics`)
+            .then(({ data }) => setStatisticsData(data))
+            .catch(console.log('Error Getting Statistics Data'))
+    }
+
+    useEffect(() => {
+        getUserData();
+    }, [])
+
+    useEffect(() => {
+        getStatisticsData();
+    }, [currentActivity])
+
+    const handleChange = async event => {
+        await setCurrentActivity(event.target.value);
+    }
 
     return (
-        <div className={classes.root}>
+        <div>
+            {userData && (
+                <div className={classes.root}>
+                    <Grid container spacing={2} justify="center"
+                        alignItems="center">
+                        <Grid item xs={12}>
+                            <FormControl variant="outlined" className={classes.formControl}>
+                                <InputLabel id="demo-simple-select-outlined-label">Activity</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-outlined-label"
+                                    id="demo-simple-select-outlined"
+                                    value={currentActivity}
+                                    onChange={handleChange}
+                                >
+                                    {userData.map(activity => (
+                                        <MenuItem key={activity.id} value={activity.id}>
+                                            {activity.name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TableContainer component={Paper}>
+                                <Table className={classes.table} aria-label="statistics table">
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell component="th" scope="row">
+                                                Time Spent:
+                                            </TableCell>
+                                            <TableCell align="right">{statisticsData.time_spent}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell component="th" scope="row">
+                                                Total number of Tasks:
+                                            </TableCell>
+                                            <TableCell align="right">{statisticsData.number_of_tasks}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell component="th" scope="row">
+                                                Numer of future Tasks:
+                                            </TableCell>
+                                            <TableCell align="right">{statisticsData.number_of_future_tasks}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell component="th" scope="row">
+                                                Time Remaining:
+                                            </TableCell>
+                                            <TableCell align="right">{statisticsData.time_remaining}</TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </Grid>
+                    </Grid>
 
-            <Grid container spacing={2} justify="center"
-                alignItems="center">
-                <Grid item xs={12}>
-                    <FormControl className={classes.formControl}>
-                        <InputLabel id="category-select">Category</InputLabel>
-                        <Select
-                            labelId="Select Category"
-                            id="category-select"
-                            value={category}
-                            onChange={handleChange}
-                        >
-                            <MenuItem value={'Sport'}>Sport</MenuItem>
-                            <MenuItem value={'Ucenje'}>Ucenje</MenuItem>
-                            <MenuItem value={'Zabava'}>Zabava</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                    <TableContainer component={Paper}>
-                        <Table className={classes.table} aria-label="statistics table">
-                            <TableBody>
-                                {rows.map(row => (
-                                    <TableRow key={row.name}>
-                                        <TableCell component="th" scope="row">
-                                            {row.name}
-                                        </TableCell>
-                                        <TableCell align="right">{row.timespent}</TableCell>
-                                        <TableCell align="right">{row.ntasks}</TableCell>
-                                        <TableCell align="right">{row.nfuturetasks}</TableCell>
-                                        <TableCell align="right">{row.tfuture}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </Grid>
-            </Grid>
-
+                </div>)}
         </div>
     );
 }
