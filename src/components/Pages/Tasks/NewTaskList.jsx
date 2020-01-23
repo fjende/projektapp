@@ -7,8 +7,6 @@ import Activity from './Activity';
 import { Button } from '@material-ui/core';
 import { MODAL_ADD_ACTIVITY, MODAL_EDIT_ACTIVITY, MODAL_ADD_TASK, MODAL_EDIT_TASK } from '../../../modal';
 import ProjektModal from '../../Modals/Modal';
-import Fab from '@material-ui/core/Fab';
-import { Divider } from '@material-ui/core/';
 
 const styles = {
   activitiesPage: {
@@ -33,9 +31,6 @@ const styles = {
     justifyContent: 'center',
     height: '90vh',
     width: '100%'
-  },
-  buttonStyle: {
-    width: '300px',
   }
 };
 
@@ -156,29 +151,22 @@ export class NewTaskList extends Component {
     return (
       <div className={classes.content}>
         <div>
-
-
-
-          {activities
-            .sort((a, b) => a.dueData < b.dueData)
-            .map(activity => (
-              <div>
-                <Activity
-                  activity={activity}
-                  key={activity.id}
-                  refetchActivities={this.handleActivityFetching}
-                  showAddTaskModal={(activity, task) => this.handleShowModal(MODAL_ADD_TASK, activity, task)}
-                  showEditTaskModal={(activity, task) => this.handleShowModal(MODAL_EDIT_TASK, activity, task)}
-                  showEditActivityModal={activity => this.handleShowModal(MODAL_EDIT_ACTIVITY, activity)}
-                />
-              </div>
-            ))}
+          <Button variant="contained" color="primary" onClick={() => this.handleShowModal(MODAL_ADD_ACTIVITY)}>
+            Add activity
+          </Button>
         </div>
-        <div style={{ marginTop: '10px', textAlign: 'center', marginBottom: '10px' }}>
-          <Button variant="outlined" className={classes.buttonStyle} color="primary" onClick={() => this.handleShowModal(MODAL_ADD_ACTIVITY)}>
-            Add NEW ACTIVITY
-        </Button>
-        </div>
+        {activities
+          .sort((a, b) => a.name - b.name)
+          .map(activity => (
+            <Activity
+              activity={activity}
+              key={activity.id}
+              refetchActivities={this.handleActivityFetching}
+              showAddTaskModal={(activity, task) => this.handleShowModal(MODAL_ADD_TASK, activity, task)}
+              showEditTaskModal={(activity, task) => this.handleShowModal(MODAL_EDIT_TASK, activity, task)}
+              showEditActivityModal={activity => this.handleShowModal(MODAL_EDIT_ACTIVITY, activity)}
+            />
+          ))}
       </div>
     );
   }
