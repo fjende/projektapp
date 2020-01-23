@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Button from '@material-ui/core/Button';
 import injectSheet from 'react-jss';
 import SubTask from './SubTask';
@@ -68,6 +68,38 @@ export class Task extends Component {
     }
   }
 
+  renderButtons() {
+    const { activity, classes, showAddTaskModal, task } = this.props;
+    const { isExpanded } = this.state;
+
+    return (
+      <Fragment>
+        {task.subTasks && task.subTasks.length ? (
+          <Button variant="outlined" color="primary" onClick={() => showAddTaskModal(activity, task)}>
+            Add subtask
+          </Button>
+        ) : (
+          <div className={classes.buttons}>
+            <Button variant="outlined" color="primary" onClick={() => showAddTaskModal(activity, task)}>
+              Add subtask
+            </Button>
+            <Button variant="outlined" color="primary" onClick={() => {}}>
+              Add to schedule
+            </Button>
+          </div>
+        )}
+        {task.subTasks.length ? (
+          <div
+            style={{ marginTop: '20px', marginBottom: '20px', color: '#7f868a', cursor: 'pointer' }}
+            onClick={() => this.setState(prevState => ({ isExpanded: !prevState.isExpanded }))}
+          >
+            {isExpanded ? 'Hide Subtasks' : 'Show Subtasks'}
+          </div>
+        ) : null}
+      </Fragment>
+    );
+  }
+
   render() {
     const { activity, classes, showAddTaskModal, task } = this.props;
     const { isExpanded } = this.state;
@@ -94,28 +126,7 @@ export class Task extends Component {
           </BootstrapButton>
         </div>
         <div>
-          {task.subTasks && task.subTasks.length ? (
-            <Button variant="outlined" color="primary" onClick={() => showAddTaskModal(activity, task)}>
-              Add subtask
-            </Button>
-          ) : (
-            <div className={classes.buttons}>
-              <Button variant="outlined" color="primary" onClick={() => showAddTaskModal(activity, task)}>
-                Add subtask
-              </Button>
-              <Button variant="outlined" color="primary" onClick={() => {}}>
-                Add to schedule
-              </Button>
-            </div>
-          )}
-          {task.subTasks.length ? (
-            <div
-              style={{ marginTop: '20px', marginBottom: '20px', color: '#7f868a', cursor: 'pointer' }}
-              onClick={() => this.setState(prevState => ({ isExpanded: !prevState.isExpanded }))}
-            >
-              {isExpanded ? 'Hide Subtasks' : 'Show Subtasks'}
-            </div>
-          ) : null}
+          {!task.isCompleted && this.renderButtons()}
           {isExpanded ? (
             <div className={classes.tasks}>
               {task.subTasks &&
