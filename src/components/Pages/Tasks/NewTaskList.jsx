@@ -15,7 +15,7 @@ const styles = {
     maxWidth: '1120px',
     margin: 'auto',
     padding: '20px',
-    backgroundColor: '#fafafa'
+    backgroundColor: 'primary'
   },
   content: {
     flexDirection: 'column',
