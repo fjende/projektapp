@@ -10,6 +10,7 @@ import {
   MODAL_ADD_TASK,
   MODAL_EDIT_TASK,
   MODAL_ADD_SCHEDULE,
+  MODAL_EDIT_CATEGORY,
   MODAL_ADD_CATEGORY
 } from '../../../modal';
 import ProjektModal from '../../Modals/Modal';
@@ -57,7 +58,8 @@ export class NewCategoriesList extends Component {
       statuses: [],
       currentModal: null,
       currentActivity: null,
-      currentTask: null
+      currentTask: null,
+      currentCategory: null
     };
   }
 
@@ -79,8 +81,8 @@ export class NewCategoriesList extends Component {
       .finally(() => this.setState({ isLoading: false }));
   };
 
-  handleShowModal = (modal, activity, task, schedule) => {
-    this.setState({ currentModal: modal, currentActivity: activity, currentTask: task, currentSchedule: schedule });
+  handleShowModal = (modal, category, task, schedule) => {
+    this.setState({ currentModal: modal, currentCategory: category, currentTask: task, currentSchedule: schedule });
   };
 
   handleCloseModal = () => {
@@ -143,14 +145,12 @@ export class NewCategoriesList extends Component {
     );
   }
 
-  renderEditTaskModal() {
-    const { currentActivity, currentTask } = this.state;
-
+  renderEditCategoryModal() {
+    const { currentCategory } = this.state;
     return (
       <ProjektModal
-        modalType={MODAL_EDIT_TASK}
-        currentActivity={currentActivity}
-        currentTask={currentTask}
+        modalType={MODAL_EDIT_CATEGORY}
+        currentCategory={currentCategory}
         hideModal={this.handleCloseModal}
       />
     );
@@ -182,7 +182,6 @@ export class NewCategoriesList extends Component {
   renderContent() {
     const { schedules } = this.state;
     const { classes } = this.props;
-    console.log(schedules);
     return (
       <div className={classes.content}>
         <div style={{ textAlign: 'center', marginBottom: '15px', marginTop: '5px' }}>
@@ -201,7 +200,7 @@ export class NewCategoriesList extends Component {
             key={category.id}
             refetchActivities={this.handleActivityFetching}
             showAddTaskModal={(activity, task) => this.handleShowModal(MODAL_ADD_TASK, activity, task)}
-            showEditTaskModal={(activity, task) => this.handleShowModal(MODAL_EDIT_TASK, activity, task)}
+            showEditCategoryModal={category => this.handleShowModal(MODAL_EDIT_CATEGORY, category)}
             showEditActivityModal={activity => this.handleShowModal(MODAL_EDIT_ACTIVITY, activity)}
             showAddScheduleModal={(activity, task) => this.handleShowModal(MODAL_ADD_SCHEDULE, activity, task)}
             showEditScheduleModal={(activity, task, schedule) =>
@@ -224,7 +223,7 @@ export class NewCategoriesList extends Component {
         {currentModal === MODAL_ADD_ACTIVITY && this.renderAddActivityModal()}
         {currentModal === MODAL_EDIT_ACTIVITY && this.renderEditActivityModal()}
         {currentModal === MODAL_ADD_TASK && this.renderAddTaskModal()}
-        {currentModal === MODAL_EDIT_TASK && this.renderEditTaskModal()}
+        {currentModal === MODAL_EDIT_CATEGORY && this.renderEditCategoryModal()}
         {currentModal === MODAL_ADD_SCHEDULE && this.renderAddScheduleModal()}
       </div>
     );
