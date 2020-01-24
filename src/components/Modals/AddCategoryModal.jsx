@@ -32,15 +32,15 @@ export class AddCategoryModal extends Component {
         };
     }
 
-    postActivityTypeDailySchedule = async (values, formikBag) => {
+    postActivityTypeDailySchedule = async (values, formikBag, id) => {
         await axios
             .post(`${API_ENDPOINT}/activity-type-daily-schedule`, {
                 userId: sessionStorage.getItem('userId'),
-                activityTypeId: this.state.currentaActivityId,
+                activityTypeId: id,
                 timeFrom: values.timeFrom.toJSON(),
                 timeTo: values.timeTo.toJSON()
             })
-            .then(res => console.log(res))
+            .then(res => this.props.hideModal())
             .catch(error => alert('Daily Schedule for Activity Type already exists!'));
     }
 
@@ -49,13 +49,12 @@ export class AddCategoryModal extends Component {
             .post(`${API_ENDPOINT}/activity-type`, {
                 name: values.name,
             })
-            .then(res => this.setState({ currentaActivityId: res.data.id }))
-            .then(console.log(this.state.currentaActivityId))
+            .then(res => this.postActivityTypeDailySchedule(values, formikBag, res.data.id))
             .catch(error => alert('Category name already exists!'));
     }
 
     handleSubmit = (values, formikBag) => {
-        Promise.all([this.postActivityType(values, formikBag), this.postActivityTypeDailySchedule(values, formikBag)]);
+        this.postActivityType(values, formikBag);
     }
 
     render() {
