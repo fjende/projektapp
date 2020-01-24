@@ -64,7 +64,7 @@ export class AddCategoryModal extends Component {
             <div className={classes.modal}>
                 <Formik
                     onSubmit={(values, formikBag) => this.handleSubmit(values, formikBag)}
-                    initialValues={{ name: '', date: new Date(), color: '', type: '', status: '' }}
+                    initialValues={{ name: '', timeFrom: new Date(), color: '', timeTo: new Date(), type: '', status: '' }}
                     render={formikProps => {
                         return (
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -86,7 +86,7 @@ export class AddCategoryModal extends Component {
                                             label="Start time"
                                             value={formikProps.values.timeFrom}
                                             minutesStep={5}
-                                            onChange={date => { formikProps.setFieldValue('timeFrom', date); console.log(date) }}
+                                            onChange={timeFrom => { formikProps.setFieldValue('timeFrom', timeFrom); }}
                                         />
                                         <KeyboardTimePicker
                                             ampm={false}
@@ -95,7 +95,7 @@ export class AddCategoryModal extends Component {
                                             label="End time"
                                             minutesStep={5}
                                             value={formikProps.values.timeTo}
-                                            onChange={date => formikProps.setFieldValue('timeTo', date)}
+                                            onChange={timeTo => formikProps.setFieldValue('timeTo', timeTo)}
                                         />
                                         <Button type="submit" fullWidth variant="contained" color="primary">
                                             Create

@@ -64,7 +64,7 @@ export class NewTaskList extends Component {
     this.handleActivityFetching();
 
     axios.get(`${API_ENDPOINT}/activity-color`).then(response => this.setState({ colors: response.data }));
-    axios.get(`${API_ENDPOINT}/activity-type`).then(response => this.setState({ types: response.data }));
+    axios.get(`${API_ENDPOINT}/activity-type-daily-schedule/user/${sessionStorage.getItem('userId')}`).then(response => this.setState({ types: response.data }));
     axios.get(`${API_ENDPOINT}/activity-status`).then(response => this.setState({ statuses: response.data }));
   }
 

@@ -12,6 +12,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import axios from 'axios';
 import { API_ENDPOINT } from '../../api';
+import { typeParameterInstantiation, typeAlias } from '@babel/types';
 
 const styles = {
   inputs: {
@@ -120,7 +121,7 @@ export class AddActivityModal extends Component {
                           <em>None</em>
                         </MenuItem>
                         {types.map(type => (
-                          <MenuItem value={type.id}>{type.name}</MenuItem>
+                          <MenuItem value={type.activityType.id}>{type.activityType.name}</MenuItem>
                         ))}
                       </Select>
                     </FormControl>

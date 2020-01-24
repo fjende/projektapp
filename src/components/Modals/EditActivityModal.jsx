@@ -124,7 +124,7 @@ export class EditActivityModal extends Component {
                           <em>None</em>
                         </MenuItem>
                         {types.map(type => (
-                          <MenuItem value={type.id}>{type.name}</MenuItem>
+                          <MenuItem value={type.activityType.id}>{type.activityType.name}</MenuItem>
                         ))}
                       </Select>
                     </FormControl>
