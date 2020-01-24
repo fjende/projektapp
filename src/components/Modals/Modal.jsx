@@ -10,12 +10,14 @@ import {
   MODAL_ADD_TASK,
   MODAL_EDIT_TASK,
   MODAL_ADD_SCHEDULE,
-  MODAL_EDIT_SCHEDULE
+  MODAL_EDIT_SCHEDULE,
+  MODAL_ADD_CATEGORY
 } from '../../modal';
 import { AddTaskModal } from './AddTaskModal';
 import { EditTaskModal } from './EditTaskModal';
 import { AddScheduleModal } from './AddScheduleModal';
 import { EditScheduleModal } from './EditScheduleModal';
+import { AddCategoryModal } from './AddCategoryModal';
 
 const styles = {
   modalOverlay: {
@@ -112,6 +114,8 @@ export class ProjektModal extends Component {
         return <AddScheduleModal {...this.props} />;
       case MODAL_EDIT_SCHEDULE:
         return <EditScheduleModal {...this.props} />;
+      case MODAL_ADD_CATEGORY:
+        return <AddCategoryModal {...this.props} />;
       default:
         return null;
     }
